@@ -1,12 +1,24 @@
 <template>
 	<div id="login-page" class="is-flex is-justify-content-center is-align-items-center ">
+		
+		
+		
 		<div v-if="!isLoading" class="login-panel step4 is-shadow">
 			<div class="is-flex is-justify-content-center pb-3 ">
+				
+				<div class="has-text-centered">
+					<b-image  :src-fallback="require('@/assets/img/logo/logo.svg')" src="/v1/users/image?path=/var/lib/casaos/1/vioneta.svg" height="128px" width="128px" max-width="50%"></b-image>
+
+					
+				</div>
+				
+			</div>
+			<!-- <div class="is-flex is-justify-content-center pb-3 ">
 				<div class="has-text-centered">
 					<b-image :src-fallback="require('@/assets/img/account/default-avatar.svg')" src="/v1/users/image?path=/var/lib/casaos/1/avatar.png" class="is-128x128" rounded></b-image>
 				</div>
 
-			</div>
+			</div> -->
 			<b-notification v-model="notificationShow" aria-close-label="Close notification" auto-close role="alert"
 							type="is-danger">
 				{{ message }}

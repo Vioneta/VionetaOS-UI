@@ -29,8 +29,8 @@
 		<footer class="modal-card-foot is-flex is-align-items-center ">
 			<div class="is-flex-grow-1">
 				<a class="is-size-14px" rel="noopener"
-				   href="https://github.com/IceWhaleTech/CasaOS/issues/new/choose"
-				   target="_blank">{{ $t('For more feedback options, visit CasaOS project on GitHub...') }}</a>
+				   href="https://github.com/Vioneta/VionetaOS/issues/new/choose"
+				   target="_blank">{{ $t('For more feedback options, visit VionetaOS project on GitHub...') }}</a>
 			</div>
 			<div>
 				<b-button :label="$t('Submit')" rounded type="is-primary" @click="submitIssue"/>
@@ -79,7 +79,7 @@ export default {
 				description: this.postBody,
 				additional: this.feedBody,
 			}
-			let repoUrl = new URL(`https://github.com/IceWhaleTech/CasaOS/issues/new`);
+			let repoUrl = new URL(`https://github.com/Vioneta/VionetaOS/issues/new`);
 			for (const optionElement in option) {
 				repoUrl.searchParams.set(optionElement, option[optionElement]);
 			}

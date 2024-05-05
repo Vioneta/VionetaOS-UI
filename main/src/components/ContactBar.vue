@@ -1,7 +1,7 @@
 <template>
 	<div class="contact-bar is-flex is-align-items-center has-text-white">
 
-		<popper :options="{
+		<!-- <popper :options="{
 			placement: 'top',
 			modifiers: { offset: { offset: '0,4px' } }
 		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
@@ -11,7 +11,7 @@
 			<a slot="reference" @click="showFeedback">
 				<b-icon icon="eedback" pack="casa"></b-icon>
 			</a>
-		</popper>
+		</popper> -->
 
 		<popper :options="{
 			placement: 'top',
@@ -20,7 +20,7 @@
 			<div class="popper  tooltip-content">
 				{{ $t('Join Discord') }}
 			</div>
-			<a slot="reference" rel="noopener" href="https://discord.gg/knqAbbBbeX" target="_blank"
+			<a slot="reference" rel="noopener" href="https://discord.gg/DCFbR7mq9v" target="_blank"
 				@click="$messageBus('connect_discord')">
 				<b-icon icon="discord" pack="casa"></b-icon>
 			</a>
@@ -33,13 +33,24 @@
 			<div class="popper  tooltip-content">
 				{{ $t('Visit our Github') }}
 			</div>
-			<a slot="reference" rel="noopener" href="https://github.com/IceWhaleTech/CasaOS" target="_blank"
+			<a slot="reference" rel="noopener" href="https://github.com/Vioneta" target="_blank"
 				@click="$messageBus('connect_github')">
 				<b-icon icon="github" pack="casa"></b-icon>
 			</a>
 		</popper>
-
 		<popper :options="{
+			placement: 'top',
+			modifiers: { offset: { offset: '0,4px' } }
+		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
+			<div class="popper  tooltip-content">
+				{{ $t('Visit our Website') }}
+			</div>
+			<a slot="reference" rel="noopener" href="https://vioneta.com" target="_blank"
+				@click="$messageBus('connect_github')">
+				<b-icon icon="chat" pack="casa"></b-icon>
+			</a>
+		</popper>
+		<!-- <popper :options="{
 			placement: 'top',
 			modifiers: { offset: { offset: '0,4px' } }
 		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
@@ -49,7 +60,7 @@
 			<a slot="reference" @click="showShareModal">
 				<b-icon icon="chat" pack="casa"></b-icon>
 			</a>
-		</popper>
+		</popper> -->
 
 	</div>
 </template>

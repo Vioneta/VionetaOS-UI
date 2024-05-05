@@ -150,10 +150,10 @@
 
 					<!--  Show other Docker container app(s) Switch Start  -->
 					<div class="is-flex is-align-items-center mb-1 _is-large _box hover-effect _is-radius pr-2 mr-4 ml-4">
-						<div class="is-flex is-align-items-center is-flex-grow-1 _is-normal">
+						<!-- <div class="is-flex is-align-items-center is-flex-grow-1 _is-normal">
 							<b-icon class="mr-1 ml-2" icon="news-outline" pack="casa" size="is-20"></b-icon>
 							{{ $t('Show news feed from CasaOS Blog') }}
-						</div>
+						</div> -->
 						<div>
 							<b-field>
 								<b-switch v-model="rss_switch" :native-value="barData.rss_switch"
