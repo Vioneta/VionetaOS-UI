@@ -56,7 +56,7 @@ jobs:
             -   run: yarn install
             -   run: yarn build
             -   run: |
-                    tar -zcvf linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz build
+                    tar zcvf linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz build
             -   name: '更新 Update release'
                 uses: zhanghengxin/git-release-private@ice
                 with:
