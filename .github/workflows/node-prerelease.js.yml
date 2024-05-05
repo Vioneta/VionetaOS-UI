@@ -65,7 +65,7 @@ jobs:
                     gzip: false
                     prerelease: true
                     tag: ${{ steps.get_version.outputs.VERSION }}
-                    files: ./linux-all-casaos-${{ steps.get_version.outputs.VERSION }}.tar.gz
+                    files: ./linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz
 
             -   name: Upload to oss
                 id: upload_to_oss
@@ -74,6 +74,6 @@ jobs:
                     key-id: ${{ secrets.OSS_KEY_ID }}
                     key-secret: ${{ secrets.OSS_KEY_SECRET }}
                     region: oss-cn-shanghai
-                    bucket: casaos
+                    bucket: vionetaos
                     assets: |
-                        ./linux-all-casaos-${{ steps.get_version.outputs.VERSION }}.tar.gz:/IceWhaleTech/CasaOS-UI/releases/download/${{ steps.get_version.outputs.VERSION }}/linux-all-casaos-${{ steps.get_version.outputs.VERSION }}.tar.gz
+                        ./linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz:/Vioneta/VionetaOS-Portal-UI/releases/download/${{ steps.get_version.outputs.VERSION }}/linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz
