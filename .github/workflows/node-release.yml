@@ -63,7 +63,7 @@ jobs:
                     token: ${{ secrets.GITHUB_TOKEN }}
                     allow_override: true
                     gzip: false
-                    prerelease: true
+                    # prerelease: true
                     tag: ${{ steps.get_version.outputs.VERSION }}
                     files: ./linux-all-vionetaos-${{ steps.get_version.outputs.VERSION }}.tar.gz
 
