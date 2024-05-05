@@ -52,36 +52,36 @@ jobs:
             -   run: yarn install
             -   run: yarn build
             -   run: |
-                    tar -zcvf linux-all-casaos-${{ env.VERSION }}.tar.gz build
+                    tar -zcvf linux-all-vionetaos-${{ env.VERSION }}.tar.gz build
                     ls
 
-            -   name: install sshpass
-                run: sudo apt install sshpass --yes
+            # -   name: install sshpass
+            #     run: sudo apt install sshpass --yes
 
 
-            -   name: ZeroTier
-                uses: zerotier/github-action@v1.0.1
-                with:
-                    network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
-                    auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
+            # -   name: ZeroTier
+            #     uses: zerotier/github-action@v1.0.1
+            #     with:
+            #         network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
+            #         auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
 
-            -   name: ping hostname
-                shell: bash
-                run: |
-                    count=10
-                    while ! ping -c 1 10.147.18.11 ; do
-                      echo "waiting..." ;
-                      sleep 1 ;
-                      let count=count-1
-                    done
-                    echo "ping success"
+            # -   name: ping hostname
+            #     shell: bash
+            #     run: |
+            #         count=10
+            #         while ! ping -c 1 10.147.18.11 ; do
+            #           echo "waiting..." ;
+            #           sleep 1 ;
+            #           let count=count-1
+            #         done
+            #         echo "ping success"
 
-            -   name: copy tar to target hostname
-                shell: bash
-                run: |
-                    sshpass -p "${{ secrets.ssh_password }}" scp -r -o StrictHostKeyChecking=no -P 22 ./linux-all-casaos-v00.00.00.tar.gz root@10.147.18.11:/var/www/download
-                    echo "ping success"
-            -   name: Error Handling
-                if: ${{ failure() }}
-                run: |
-                    curl -X POST -H "Content-Type: application/json" -d '{"msg_type":"text","content":{"text":"CasaOS-UI push error"}}' ${{ secrets.SSH_ROBOT_URL }} 
+            # -   name: copy tar to target hostname
+            #     shell: bash
+            #     run: |
+            #         sshpass -p "${{ secrets.ssh_password }}" scp -r -o StrictHostKeyChecking=no -P 22 ./linux-all-vionetaos-v00.00.00.tar.gz root@10.147.18.11:/var/www/download
+            #         echo "ping success"
+            # -   name: Error Handling
+            #     if: ${{ failure() }}
+            #     run: |
+            #         curl -X POST -H "Content-Type: application/json" -d '{"msg_type":"text","content":{"text":"VionetaOS-Portal-UI push error"}}' ${{ secrets.SSH_ROBOT_URL }} 
