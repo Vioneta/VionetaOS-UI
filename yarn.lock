@@ -4953,20 +4953,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"casaos@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "casaos@workspace:."
-  dependencies:
-    "@icewhale/casaos-appmanagement-openapi": latest
-    csslint: ^1.0.5
-    htmlhint: ^1.1.4
-    js-yaml: ^4.1.0
-    jshint: ^2.13.6
-    jsonlint: ^1.6.3
-    turbo: 1.10.9
-  languageName: unknown
-  linkType: soft
-
 "case-anything@npm:^2.1.10":
   version: 2.1.13
   resolution: "case-anything@npm:2.1.13"
@@ -17185,6 +17171,20 @@ __metadata:
   checksum: 2f5fe2d8a39ae79d2a7932960daead500f565b9c0ae69959c78c039016270cea403b11e643772b8479aa50d0da53da03bf64b885fae2fd5e2066c36b10d9fbf3
   languageName: node
   linkType: hard
+
+"vionetaos@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "vionetaos@workspace:."
+  dependencies:
+    "@icewhale/casaos-appmanagement-openapi": latest
+    csslint: ^1.0.5
+    htmlhint: ^1.1.4
+    js-yaml: ^4.1.0
+    jshint: ^2.13.6
+    jsonlint: ^1.6.3
+    turbo: 1.10.9
+  languageName: unknown
+  linkType: soft
 
 "vm-browserify@npm:^1.0.1":
   version: 1.1.2
