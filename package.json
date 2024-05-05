@@ -1,6 +1,6 @@
 {
-  "name": "casaos",
-  "version": "v0.4.2",
+  "name": "vionetaos",
+  "version": "v0.1.0",
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow yarn",
