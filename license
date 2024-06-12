@@ -847,11 +847,11 @@
 │  ├─ repository: https://github.com/hapijs/topo
 │  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@hapi/topo
 │  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@hapi/topo/LICENSE.md
-├─ @icewhale/vionetaos-appmanagement-openapi@0.4.4-alpha16
+├─ vionetaos-appmanagement-openapi@0.4.4-alpha16
 │  ├─ licenses: Apache-2.0
 │  ├─ publisher: vionetaos
-│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi
-│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/LICENSE
+│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-appmanagement-openapi
+│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-appmanagement-openapi/LICENSE
 ├─ @intervolga/optimize-cssnano-plugin@1.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/intervolga/optimize-cssnano-plugin
@@ -2234,8 +2234,8 @@
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/node_modules/axios
-│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/node_modules/axios/LICENSE
+│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-appmanagement-openapi/node_modules/axios
+│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-appmanagement-openapi/node_modules/axios/LICENSE
 ├─ babel-eslint@10.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-eslint

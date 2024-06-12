@@ -15,9 +15,9 @@
   "packageManager": "yarn@3.5.1",
   "dependencies": {
     "@fontsource/roboto": "^5.0.5",
-    "@icewhale/vionetaos-appmanagement-openapi": "latest",
-    "@icewhale/vionetaos-openapi": "latest",
-    "@icewhale/icewhale-files-openapi": "latest",
+    "vionetaos-appmanagement-openapi": "latest",
+    "vionetaos-openapi": "latest",
+    "icewhale-files-openapi": "latest",
     "@kangc/v-md-editor": "^1.7.11",
     "@mdi/font": "^6.9.96",
     "@tiptap/core": "^2.0.4",

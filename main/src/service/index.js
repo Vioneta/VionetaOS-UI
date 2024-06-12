@@ -18,7 +18,7 @@ import {
 	AppStoreMethodsApiFactory,
 	AppStoreMethodsApiFp,
 	AppStoreMethodsApi,
-} from "@icewhale/vionetaos-appmanagement-openapi";
+} from "vionetaos-appmanagement-openapi";
 
 import store from "@/store";
 import router from "@/router";
