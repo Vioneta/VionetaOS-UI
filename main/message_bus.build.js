@@ -7,34 +7,33 @@
  * Copyright (c) 2022 by IceWhale, All Rights Reserved.
  */
 
-const events = require('./src/events/message_bus.js');
-const fs = require('fs');
-const path = require('path');
+const events = require("./src/events/message_bus.js");
+const fs = require("fs");
+const path = require("path");
 
-const outPath = '../build/sysroot/var/lib/casaos/';
-const outName = 'ui-message-bus.json';
-const registerShellPath = '../build/sysroot/etc/casaos/start.d/';
+const outPath = "../build/sysroot/var/lib/vionetaos/";
+const outName = "ui-message-bus.json";
+const registerShellPath = "../build/sysroot/etc/vionetaos/start.d/";
 const array = [];
 
 // Parse the event to array
 Object.keys(events).forEach((key) => {
-	events[key]().then(eventObj => {
-		eventObj.propertyTypeList = Object.keys(eventObj.properties)
+	events[key]().then((eventObj) => {
+		eventObj.propertyTypeList = Object.keys(eventObj.properties);
 		eventObj.propertyTypeList = eventObj.propertyTypeList.map((key) => {
 			return {
-				"name": key,
-				"discription": "",
-				"example": ""
-			}
+				name: key,
+				discription: "",
+				example: "",
+			};
 		});
-		delete eventObj.properties
+		delete eventObj.properties;
 		array.push(eventObj);
 	});
 });
 
-
 // Create the output folder
-fs.mkdir(outPath, {recursive: true}, (err) => {
+fs.mkdir(outPath, { recursive: true }, (err) => {
 	if (err) {
 		console.log(err);
 	} else {
@@ -43,26 +42,24 @@ fs.mkdir(outPath, {recursive: true}, (err) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('The json file has been saved!');
+				console.log("The json file has been saved!");
 			}
 		});
 	}
 });
-
 
 // Copy the register shell file to the output folder
 
-fs.mkdir(registerShellPath, {recursive: true}, (err) => {
+fs.mkdir(registerShellPath, { recursive: true }, (err) => {
 	if (err) {
 		console.log(err);
 	} else {
-		fs.copyFile('./register-ui-events.sh', path.join(registerShellPath, 'register-ui-events.sh'), (err) => {
+		fs.copyFile("./register-ui-events.sh", path.join(registerShellPath, "register-ui-events.sh"), (err) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('The shell file has been saved!');
+				console.log("The shell file has been saved!");
 			}
 		});
 	}
 });
-

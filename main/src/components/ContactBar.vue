@@ -1,6 +1,5 @@
 <template>
 	<div class="contact-bar is-flex is-align-items-center has-text-white">
-
 		<!-- <popper :options="{
 			placement: 'top',
 			modifiers: { offset: { offset: '0,4px' } }
@@ -13,40 +12,73 @@
 			</a>
 		</popper> -->
 
-		<popper :options="{
-			placement: 'top',
-			modifiers: { offset: { offset: '0,4px' } }
-		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
-			<div class="popper  tooltip-content">
-				{{ $t('Join Discord') }}
+		<popper
+			:options="{
+				placement: 'top',
+				modifiers: { offset: { offset: '0,4px' } },
+			}"
+			enter-active-class="fade-enter-active"
+			leave-active-class=""
+			transition="fade"
+			trigger="hover"
+		>
+			<div class="popper tooltip-content">
+				{{ $t("Join Discord") }}
 			</div>
-			<a slot="reference" rel="noopener" href="https://discord.gg/DCFbR7mq9v" target="_blank"
-				@click="$messageBus('connect_discord')">
+			<a
+				slot="reference"
+				rel="noopener"
+				href="https://discord.gg/DCFbR7mq9v"
+				target="_blank"
+				@click="$messageBus('connect_discord')"
+			>
 				<b-icon icon="discord" pack="casa"></b-icon>
 			</a>
 		</popper>
 
-		<popper :options="{
-			placement: 'top',
-			modifiers: { offset: { offset: '0,4px' } }
-		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
-			<div class="popper  tooltip-content">
-				{{ $t('Visit our Github') }}
+		<popper
+			:options="{
+				placement: 'top',
+				modifiers: { offset: { offset: '0,4px' } },
+			}"
+			enter-active-class="fade-enter-active"
+			leave-active-class=""
+			transition="fade"
+			trigger="hover"
+		>
+			<div class="popper tooltip-content">
+				{{ $t("Visit our Github") }}
 			</div>
-			<a slot="reference" rel="noopener" href="https://github.com/Vioneta" target="_blank"
-				@click="$messageBus('connect_github')">
+			<a
+				slot="reference"
+				rel="noopener"
+				href="https://github.com/Vioneta"
+				target="_blank"
+				@click="$messageBus('connect_github')"
+			>
 				<b-icon icon="github" pack="casa"></b-icon>
 			</a>
 		</popper>
-		<popper :options="{
-			placement: 'top',
-			modifiers: { offset: { offset: '0,4px' } }
-		}" enter-active-class="fade-enter-active" leave-active-class="" transition='fade' trigger="hover">
-			<div class="popper  tooltip-content">
-				{{ $t('Visit our Website') }}
+		<popper
+			:options="{
+				placement: 'top',
+				modifiers: { offset: { offset: '0,4px' } },
+			}"
+			enter-active-class="fade-enter-active"
+			leave-active-class=""
+			transition="fade"
+			trigger="hover"
+		>
+			<div class="popper tooltip-content">
+				{{ $t("Visit our Website") }}
 			</div>
-			<a slot="reference" rel="noopener" href="https://vioneta.com" target="_blank"
-				@click="$messageBus('connect_github')">
+			<a
+				slot="reference"
+				rel="noopener"
+				href="https://vioneta.com"
+				target="_blank"
+				@click="$messageBus('connect_github')"
+			>
 				<b-icon icon="chat" pack="casa"></b-icon>
 			</a>
 		</popper>
@@ -61,15 +93,13 @@
 				<b-icon icon="chat" pack="casa"></b-icon>
 			</a>
 		</popper> -->
-
 	</div>
 </template>
 
 <script>
-import FeedbackPanel from './feedback/FeedbackPanel.vue'
-import ShareModal from '@/components/share/ShareModal.vue'
-import Popper from 'vue-popperjs';
-
+import FeedbackPanel from "./feedback/FeedbackPanel.vue";
+import ShareModal from "@/components/share/ShareModal.vue";
+import Popper from "vue-popperjs";
 
 export default {
 	name: "contact-bar",
@@ -79,35 +109,35 @@ export default {
 	methods: {
 		showFeedback() {
 			// messageBus :: feedback
-			this.$messageBus('connect_feedback');
+			this.$messageBus("connect_feedback");
 			this.$buefy.modal.open({
 				parent: this,
 				component: FeedbackPanel,
 				hasModalCard: true,
-				customClass: 'feedback-modal',
+				customClass: "feedback-modal",
 				trapFocus: true,
 				canCancel: [],
 				scroll: "keep",
 				animation: "zoom-in",
-			})
+			});
 		},
 
 		showShareModal() {
 			// messageBus :: share
-			this.$messageBus('connect_sharecasaos');
+			this.$messageBus("connect_sharevionetaos");
 			this.$buefy.modal.open({
 				parent: this,
 				component: ShareModal,
 				hasModalCard: true,
-				customClass: 'network-storage-modal',
+				customClass: "network-storage-modal",
 				trapFocus: true,
 				canCancel: [],
 				scroll: "keep",
 				animation: "zoom-in",
-			})
-		}
+			});
+		},
 	},
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -139,7 +169,6 @@ export default {
 	font-size: 0.85rem;
 	font-weight: 400;
 }
-
 
 @media screen and (max-width: 480px) {
 	.contact-bar {

@@ -847,11 +847,11 @@
 │  ├─ repository: https://github.com/hapijs/topo
 │  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@hapi/topo
 │  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@hapi/topo/LICENSE.md
-├─ @icewhale/casaos-appmanagement-openapi@0.4.4-alpha16
+├─ @icewhale/vionetaos-appmanagement-openapi@0.4.4-alpha16
 │  ├─ licenses: Apache-2.0
-│  ├─ publisher: casaos
-│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/casaos-appmanagement-openapi
-│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/casaos-appmanagement-openapi/LICENSE
+│  ├─ publisher: vionetaos
+│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi
+│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/LICENSE
 ├─ @intervolga/optimize-cssnano-plugin@1.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/intervolga/optimize-cssnano-plugin
@@ -2234,8 +2234,8 @@
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/casaos-appmanagement-openapi/node_modules/axios
-│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/casaos-appmanagement-openapi/node_modules/axios/LICENSE
+│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/node_modules/axios
+│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/@icewhale/vionetaos-appmanagement-openapi/node_modules/axios/LICENSE
 ├─ babel-eslint@10.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel-eslint
@@ -2696,12 +2696,12 @@
 │  ├─ url: http://beneb.info
 │  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/caniuse-lite
 │  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/caniuse-lite/LICENSE
-├─ casaos-main@0.4.2
+├─ vionetaos-main@0.4.2
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
-│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/casaos-main
-│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/casaos-main/README.md
-├─ casaos@0.4.2
+│  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-main
+│  └─ licenseFile: /Users/zhanghengxin/WebstormProjects/CasaOS-UI/node_modules/vionetaos-main/README.md
+├─ vionetaos@0.4.2
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  ├─ path: /Users/zhanghengxin/WebstormProjects/CasaOS-UI

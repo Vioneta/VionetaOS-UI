@@ -7,32 +7,36 @@
 				<!-- Header Start -->
 				<div class="widget-header is-flex">
 					<div class="widget-title is-flex-grow-1">
-						{{ $t('Storage') }}
+						{{ $t("Storage") }}
 					</div>
 					<div class="widget-icon-button is-flex-shrink-0" @click="showDiskManagement">
 						<b-icon icon="settings-outline" pack="casa" size="is-20"></b-icon>
 					</div>
 				</div>
 				<!-- Header End -->
-				<div class="columns is-mobile is-multiline pt-2 ">
+				<div class="columns is-mobile is-multiline pt-2">
 					<div class="column is-full pb-0">
 						<div class="is-flex is-align-items-center">
 							<div class="header-icon">
 								<b-image :src="require('@/assets/img/storage/storage.svg')" class="is-64x64"></b-image>
 							</div>
-							<div class="ml-2 is-flex-grow-1 ">
+							<div class="ml-2 is-flex-grow-1">
 								<h4 class="title mb-1 mt-0 has-text-left one-line is-align-items-center is-flex">
-									<b-tag v-if="health" type="is-success">{{ $t('Healthy') }}</b-tag>
-									<b-tag v-else type="is-danger">{{ $t('Damage') }}</b-tag>
+									<b-tag v-if="health" type="is-success">{{ $t("Healthy") }}</b-tag>
+									<b-tag v-else type="is-danger">{{ $t("Damage") }}</b-tag>
 								</h4>
 								<p class="has-text-left is-size-14px disk-info">
-									{{ $t('Used') }}: {{ renderSize(totalUsed) }}<br>
-									{{ $t('Total') }}: {{ renderSize(totalSize) }}
+									{{ $t("Used") }}: {{ renderSize(totalUsed) }}<br />
+									{{ $t("Total") }}: {{ renderSize(totalSize) }}
 								</p>
 							</div>
 						</div>
-						<b-progress :type="totalPercent | getProgressType" :value="totalPercent" class="mt-2"
-							size="is-small"></b-progress>
+						<b-progress
+							:type="totalPercent | getProgressType"
+							:value="totalPercent"
+							class="mt-2"
+							size="is-small"
+						></b-progress>
 					</div>
 				</div>
 			</div>
@@ -42,25 +46,28 @@
 		<div v-if="usbDisks.length > 0" class="widget has-text-white disk is-relative">
 			<div class="blur-background"></div>
 			<div class="widget-content">
-				<div class="columns is-mobile is-multiline pt-2 ">
-					<div v-for="(item) in usbDisks" :key="'usb_' + item.name" class="column is-full pb-0">
+				<div class="columns is-mobile is-multiline pt-2">
+					<div v-for="item in usbDisks" :key="'usb_' + item.name" class="column is-full pb-0">
 						<div class="is-flex">
 							<div class="header-icon is-flex-shrink-0">
 								<b-image :src="require('@/assets/img/storage/USB.svg')" class="is-64x64"></b-image>
 							</div>
-							<div class="ml-2 is-flex-grow-1 ">
-								<h4 class="title is-size-14px mb-1 mt-0 has-text-left has-text-white one-line ">
+							<div class="ml-2 is-flex-grow-1">
+								<h4 class="title is-size-14px mb-1 mt-0 has-text-left has-text-white one-line">
 									{{ item.model }}
 								</h4>
 								<p class="has-text-left is-size-14px disk-info">
-									{{ $t('Used') }}: {{ renderSize(item.size - item.avail) }}<br>
-									{{ $t('Total') }}: {{ renderSize(item.size) }}
+									{{ $t("Used") }}: {{ renderSize(item.size - item.avail) }}<br />
+									{{ $t("Total") }}: {{ renderSize(item.size) }}
 								</p>
 							</div>
 						</div>
-						<b-progress :type="(Math.floor((item.size - item.avail) * 100 / item.size)) | getProgressType"
-							:value="Math.floor((item.size - item.avail) * 100 / item.size)" class="mt-2"
-							size="is-small"></b-progress>
+						<b-progress
+							:type="Math.floor(((item.size - item.avail) * 100) / item.size) | getProgressType"
+							:value="Math.floor(((item.size - item.avail) * 100) / item.size)"
+							class="mt-2"
+							size="is-small"
+						></b-progress>
 					</div>
 				</div>
 			</div>
@@ -71,12 +78,12 @@
 </template>
 
 <script>
-import StorageManagerPanel from '@/components/Storage/StorageManagerPanel.vue'
-import { mixin } from '@/mixins/mixin';
+import StorageManagerPanel from "@/components/Storage/StorageManagerPanel.vue";
+import { mixin } from "@/mixins/mixin";
 
 export default {
 	// eslint-disable-next-line vue/multi-word-component-names
-	name: 'disks',
+	name: "disks",
 	icon: "storage-outline",
 	title: "Storage Status",
 	initShow: true,
@@ -88,46 +95,46 @@ export default {
 			totalUsed: 0,
 			totalPercent: 0,
 			health: "Healthy",
-			usbDisks: []
-		}
+			usbDisks: [],
+		};
 	},
 
 	mounted() {
-		this.getDiskInfo(this.$store.state.hardwareInfo.sys_disk)
-		this.usbDisks = this.$store.state.hardwareInfo.sys_usb
+		this.getDiskInfo(this.$store.state.hardwareInfo.sys_disk);
+		this.usbDisks = this.$store.state.hardwareInfo.sys_usb;
 	},
 	methods: {
 		getDiskInfo(diskInfo) {
-			this.totalSize = diskInfo.size
-			this.totalUsed = diskInfo.used
-			this.totalPercent = 100 - Math.floor(diskInfo.avail * 100 / this.totalSize)
-			this.health = diskInfo.health
+			this.totalSize = diskInfo.size;
+			this.totalUsed = diskInfo.used;
+			this.totalPercent = 100 - Math.floor((diskInfo.avail * 100) / this.totalSize);
+			this.health = diskInfo.health;
 		},
 
 		showDiskManagement() {
-			this.$messageBus('widget_storagemanager');
+			this.$messageBus("widget_storagemanager");
 			this.$buefy.modal.open({
 				parent: this,
 				component: StorageManagerPanel,
 				hasModalCard: true,
-				customClass: 'storage-modal',
+				customClass: "storage-modal",
 				trapFocus: true,
 				canCancel: [],
 				scroll: "keep",
 				animation: "zoom-in",
-			})
+			});
 		},
 	},
 	sockets: {
-		"casaos:system:utilization"(res) {
-			let data = res.Properties
+		"vionetaos:system:utilization"(res) {
+			let data = res.Properties;
 			// DISK
-			this.getDiskInfo(JSON.parse(data.sys_disk))
+			this.getDiskInfo(JSON.parse(data.sys_disk));
 			// USB
-			this.usbDisks = JSON.parse(data.sys_usb)
-		}
-	}
-}
+			this.usbDisks = JSON.parse(data.sys_usb);
+		},
+	},
+};
 </script>
 
 <style lang="scss">
@@ -144,7 +151,6 @@ export default {
 			opacity: 1;
 			border-radius: 6px;
 		}
-
 	}
 
 	.disk-info {
@@ -179,6 +185,5 @@ export default {
 		color: $red;
 		border-color: $red;
 	}
-
 }
 </style>

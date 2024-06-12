@@ -1,9 +1,8 @@
 import { api } from "./service.js";
 
-const PREFIX = "/sys"
+const PREFIX = "/sys";
 
 const sys = {
-
 	// Get websocket port
 	getSocketPort() {
 		return api.get(`${PREFIX}/socket-port`);
@@ -21,7 +20,7 @@ const sys = {
 
 	// Hardware Info
 	hardwareInfo() {
-		return api.get(`${PREFIX}/hardware`)
+		return api.get(`${PREFIX}/hardware`);
 	},
 
 	// get cpu info
@@ -61,15 +60,15 @@ const sys = {
 
 	// proxy request
 	getProxyRequestContent(url) {
-		return api.get(`${PREFIX}/proxy?url=${url}`)
+		return api.get(`${PREFIX}/proxy?url=${url}`);
 	},
 
-	// get casaos server port
+	// get vionetaos server port
 	getServerPort() {
 		return api.get(`/gateway/port`);
 	},
 
-	// edit casaos server port
+	// edit vionetaos server port
 	editServerPort(data) {
 		return api.put(`/gateway/port`, data);
 	},
@@ -89,7 +88,7 @@ const sys = {
 		return api.post(`${PREFIX}/update`);
 	},
 
-	// stop casaos
+	// stop vionetaos
 	stopCasaOS() {
 		return api.post(`${PREFIX}/stop`);
 	},
@@ -101,7 +100,7 @@ const sys = {
 
 	// Get system apps
 	getSystemApps() {
-		return api.get(`${PREFIX}/apps-state`)
+		return api.get(`${PREFIX}/apps-state`);
 	},
 
 	// Check ssh login
@@ -114,5 +113,5 @@ const sys = {
 	power(data) {
 		return api.put(`${PREFIX}/state/${data}`);
 	},
-}
+};
 export default sys;

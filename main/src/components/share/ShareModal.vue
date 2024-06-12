@@ -3,37 +3,47 @@
 		<!-- Modal-Card Header Start -->
 		<header class="modal-card-head">
 			<div class="is-flex-grow-1">
-				<h3 class="title is-3">{{ $t('Share CasaOS') }}</h3>
+				<h3 class="title is-3">{{ $t("Share CasaOS") }}</h3>
 			</div>
 			<div>
-				<button class="delete" type="button" @click="$emit('close')"/>
+				<button class="delete" type="button" @click="$emit('close')" />
 			</div>
 		</header>
 		<!-- Modal-Card Header End -->
 		<!-- Modal-Card Body Start -->
-		<section class="modal-card-body ">
-			<div class="node-card  mt-5 mb-5">
-
+		<section class="modal-card-body">
+			<div class="node-card mt-5 mb-5">
 				<div>
-					<div class=" is-size-14px">{{
-						$t('Please invite more friends who are concerned about family and data privacy to join and use CasaOS.')
+					<div class="is-size-14px">
+						{{
+							$t(
+								"Please invite more friends who are concerned about family and data privacy to join and use CasaOS."
+							)
 						}}
 					</div>
 
-					<b-image :src="require('@/assets/img//social/share_img.png')"
-							 class="share-img-shadow share-img"></b-image>
+					<b-image
+						:src="require('@/assets/img//social/share_img.png')"
+						class="share-img-shadow share-img"
+					></b-image>
 				</div>
 
 				<div class="buttons is-justify-content-center mb-6 mt-4">
-					<ShareNetwork v-for="site in shareSites" :key="site" :description="shareTitle" :img="githubUrl"
-								  :network="site"
-								  :title="shareTitle" :url="githubUrl" hashtags="homecloud,opensource">
+					<ShareNetwork
+						v-for="site in shareSites"
+						:key="site"
+						:description="shareTitle"
+						:img="githubUrl"
+						:network="site"
+						:title="shareTitle"
+						:url="githubUrl"
+						hashtags="homecloud,opensource"
+					>
 						<b-button :icon-left="site" :type="`is-${site}`" class="ml-3 mr-3" icon-pack="casa">
 							Share
 						</b-button>
 					</ShareNetwork>
 				</div>
-
 			</div>
 		</section>
 		<!-- Modal-Card Body End -->
@@ -41,32 +51,28 @@
 </template>
 
 <script>
-import {marked} from 'marked'
+import { marked } from "marked";
 
 export default {
 	props: {
 		changeLog: {
 			type: String,
-			default: ""
+			default: "",
 		},
 	},
 	data() {
 		return {
 			timer: 0,
 			updateTimer: 0,
-			githubUrl: `https://raw.githubusercontent.com/IceWhaleTech/logo/main/casaos/0.4/casaos_social_share.png`,
+			githubUrl: `https://raw.githubusercontent.com/IceWhaleTech/logo/main/vionetaos/0.4/vionetaos_social_share.png`,
 			shareTitle: `I'm using CasaOS, a simple, easy-to-use, elegant open-source home cloud system, try it like me.`,
-			shareSites: [
-				'facebook',
-				'twitter',
-				'reddit'
-			]
+			shareSites: ["facebook", "twitter", "reddit"],
 		};
 	},
 	computed: {
 		markdownToHtml() {
 			return marked.parse(this.changeLog);
-		}
+		},
 	},
 	methods: {
 		/**
@@ -76,7 +82,7 @@ export default {
 		async updateSystem() {
 			this.isUpdating = true;
 			await this.$api.sys.updateCasaOS();
-			this.getUpdateLogs()
+			this.getUpdateLogs();
 		},
 
 		/**
@@ -85,8 +91,7 @@ export default {
 		 */
 		getUpdateLogs() {
 			this.updateTimer = setInterval(() => {
-				this.$api.file.getContent(`/var/log/casaos/upgrade.log`).then(res => {
-
+				this.$api.file.getContent(`/var/log/vionetaos/upgrade.log`).then((res) => {
 					this.updateLogs = res.data.data;
 					if (this.updateLogs.includes(`CasaOS upgrade successfully`)) {
 						clearInterval(this.updateTimer);
@@ -96,15 +101,14 @@ export default {
 					} else if (this.updateLogs.includes(`CasaOS upgrade failed`)) {
 						this.$buefy.toast.open({
 							message: this.$t(`There seems to be a problem with the upgrade process, please try again!`),
-							type: 'is-danger'
-						})
+							type: "is-danger",
+						});
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
 							this.isUpdating = false;
 						}, 1000);
-
 					}
-				})
+				});
 			}, 200);
 		},
 		/**
@@ -113,18 +117,18 @@ export default {
 		 */
 		checkUpdateState() {
 			this.timer = setInterval(() => {
-				this.$api.sys.getVersion().then(res => {
+				this.$api.sys.getVersion().then((res) => {
 					if (res.data.success == 200) {
 						if (!res.data.data.is_need) {
 							clearInterval(this.timer);
 							location.reload();
 						}
 					}
-				})
-			}, 3000)
+				});
+			}, 3000);
 		},
 	},
-}
+};
 </script>
 
 <style lang="scss">

@@ -1,10 +1,6 @@
 <template>
 	<section style="height: calc(100vh - 12.8125rem)">
-		<b-tabs
-			class="has-text-full-03"
-			style="height: 100%"
-			v-model="current_service"
-		>
+		<b-tabs class="has-text-full-03" style="height: 100%" v-model="current_service">
 			<b-tab-item v-for="(service, key) in configData.services" :key="key" :label="key" :value="key">
 				<ValidationObserver :ref="key + 'valida'">
 					<b-field grouped>
@@ -92,8 +88,8 @@
 						>
 							<b-input
 								:placeholder="$t('e.g.,Your App Name')"
-								:value="ice_i18n(configData['x-casaos'].title)"
-								@blur="(E) => (configData['x-casaos'].title.custom = E.target._value)"
+								:value="ice_i18n(configData['x-vionetaos'].title)"
+								@blur="(E) => (configData['x-vionetaos'].title.custom = E.target._value)"
 							></b-input>
 						</b-field>
 					</ValidationProvider>
@@ -111,20 +107,21 @@
 							</span>
 						</p>
 						<b-input
-							v-model="configData['x-casaos'].icon"
+							v-model="configData['x-vionetaos'].icon"
 							:placeholder="$t('Your custom icon URL')"
 							expanded
 						></b-input>
 					</b-field>
 
 					<b-field v-if="key === firstAppName" label="Web UI">
-						<b-select v-model="configData['x-casaos'].scheme">
+						<b-select v-model="configData['x-vionetaos'].scheme">
 							<option value="http">http://</option>
 							<option value="https">https://</option>
 						</b-select>
-						<b-input v-model="configData['x-casaos'].hostname" :placeholder="baseUrl" expanded> </b-input>
+						<b-input v-model="configData['x-vionetaos'].hostname" :placeholder="baseUrl" expanded>
+						</b-input>
 						<b-autocomplete
-							v-model="configData['x-casaos'].port_map"
+							v-model="configData['x-vionetaos'].port_map"
 							:data="bridgePorts(configData.services)"
 							:open-on-focus="true"
 							:placeholder="$t('Port')"
@@ -134,7 +131,7 @@
 						>
 						</b-autocomplete>
 						<b-input
-							v-model="configData['x-casaos'].index"
+							v-model="configData['x-vionetaos'].index"
 							:placeholder="'/index.html ' + $t('[Optional]')"
 							expanded
 						>
@@ -274,29 +271,29 @@
 </template>
 
 <script>
-import debounce                                   from "lodash/debounce";
-import axios                                      from "axios";
+import debounce from "lodash/debounce";
+import axios from "axios";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import "@/plugins/vee-validate";
-import Ports                                      from "../forms/Ports.vue";
-import EnvInputGroup                              from "../forms/EnvInputGroup.vue";
-import CommandsInput                              from "../forms/CommandsInput.vue";
-import InputGroup                                 from "../forms/InputGroup.vue";
-import VolumesInputGroup                          from "@/components/forms/VolumesInputGroup.vue";
-import VueSlider                                  from "vue-slider-component";
+import Ports from "../forms/Ports.vue";
+import EnvInputGroup from "../forms/EnvInputGroup.vue";
+import CommandsInput from "../forms/CommandsInput.vue";
+import InputGroup from "../forms/InputGroup.vue";
+import VolumesInputGroup from "@/components/forms/VolumesInputGroup.vue";
+import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
-import YAML                                       from "yaml";
-import lowerFirst                                 from "lodash/lowerFirst";
-import isNil                                      from "lodash/isNil";
-import { isNumber, isString }                     from "lodash/lang";
-import cloneDeep                                  from "lodash/cloneDeep";
-import merge                                      from "lodash/merge";
-import { ice_i18n }                               from "@/mixins/base/common-i18n";
-import { nanoid }                                 from "nanoid";
-import find                                       from "lodash/find";
-import isArray                                    from "lodash/isArray";
-import isEmpty                                    from "lodash/isEmpty";
-import isObject                                   from "lodash/isObject";
+import YAML from "yaml";
+import lowerFirst from "lodash/lowerFirst";
+import isNil from "lodash/isNil";
+import { isNumber, isString } from "lodash/lang";
+import cloneDeep from "lodash/cloneDeep";
+import merge from "lodash/merge";
+import { ice_i18n } from "@/mixins/base/common-i18n";
+import { nanoid } from "nanoid";
+import find from "lodash/find";
+import isArray from "lodash/isArray";
+import isEmpty from "lodash/isEmpty";
+import isObject from "lodash/isObject";
 
 const data = [
 	"AUDIT_CONTROL",
@@ -370,7 +367,7 @@ export default {
 						},
 					},
 				},
-				"x-casaos": {
+				"x-vionetaos": {
 					hostname: "",
 					scheme: "http",
 					index: "/",
@@ -422,17 +419,16 @@ export default {
 				this.$emit("updateDockerComposeServiceName", val);
 				if (this.configData.name) {
 					this.$openAPI.appManagement.appStore
-					.composeAppServiceStableTag(this.configData.name, this.current_service)
-					.then((res) => {
-						this.serviceStableVersion = res.data.data.tag;
-					})
-					.catch((e) => {
-						this.serviceStableVersion = "";
-					});
-				}else{
+						.composeAppServiceStableTag(this.configData.name, this.current_service)
+						.then((res) => {
+							this.serviceStableVersion = res.data.data.tag;
+						})
+						.catch((e) => {
+							this.serviceStableVersion = "";
+						});
+				} else {
 					this.serviceStableVersion = "";
 				}
-				
 			},
 			immediate: true,
 		},
@@ -473,7 +469,7 @@ export default {
 			return Object.keys(this.configData.services)[0];
 		},
 		appIcon() {
-			return this.configData["x-casaos"].icon;
+			return this.configData["x-vionetaos"].icon;
 		},
 		appendNetworks() {
 			return this.networks.map((item) => {
@@ -558,8 +554,8 @@ export default {
 		 * @return {*} void
 		 */
 		changeIcon(image) {
-			// set this.configData['x-casaos'].icon
-			this.configData["x-casaos"].icon = this.getIconFromImage(image);
+			// set this.configData['x-vionetaos'].icon
+			this.configData["x-vionetaos"].icon = this.getIconFromImage(image);
 		},
 
 		/**
@@ -572,7 +568,7 @@ export default {
 				return "";
 			} else {
 				let appIcon = image.split(":")[0].split("/").pop();
-				return `https://icon.casaos.io/main/all/${appIcon}.png`;
+				return `https://icon.vionetaos.io/main/all/${appIcon}.png`;
 			}
 		},
 
@@ -621,15 +617,15 @@ export default {
 				this.configData.services = {};
 				// 删除掉原默认主应用。
 				this.$delete(this.configData.services, "main_app");
-				// this.current_service = yaml["x-casaos"].main;
+				// this.current_service = yaml["x-vionetaos"].main;
 				this.current_service = Object.keys(yaml.services)[0];
 				// 解析 services，并将其赋值到 configData.services中。
 				for (const serviceKey in yaml.services) {
 					this.$set(this.configData.services, serviceKey, this.parseComposeItem(yaml.services[serviceKey]));
 				}
 
-				// set top level x-casaos data
-				this.configData["x-casaos"] = merge(this.configData["x-casaos"], yaml["x-casaos"]);
+				// set top level x-vionetaos data
+				this.configData["x-vionetaos"] = merge(this.configData["x-vionetaos"], yaml["x-vionetaos"]);
 			} catch (error) {
 				console.log(error);
 			}

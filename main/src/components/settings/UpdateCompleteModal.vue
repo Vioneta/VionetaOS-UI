@@ -1,33 +1,42 @@
-
 <template>
 	<div class="modal-card">
 		<!-- Modal-Card Header Start -->
 		<header class="modal-card-head">
 			<div class="is-flex-grow-1">
-				<h3 class="title is-header">{{$t('Update completed')}}</h3>
+				<h3 class="title is-header">{{ $t("Update completed") }}</h3>
 			</div>
-			<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close');" />
+			<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close')" />
 		</header>
 		<!-- Modal-Card Header End -->
 		<!-- Modal-Card Body Start -->
-		<section class="modal-card-body ">
-			<div class="node-card  mt-5 mb-5">
-				<div class="update-info-container  is-size-14px " v-dompurify-html="markdownToHtml"></div>
+		<section class="modal-card-body">
+			<div class="node-card mt-5 mb-5">
+				<div class="update-info-container is-size-14px" v-dompurify-html="markdownToHtml"></div>
 				<div class="mt-2rem">
-					<h3 class="title is-5 mb-2">{{ $t('Let more friends know') }}</h3>
-					<div class=" is-size-14px">{{ $t('Please share to friends who are concerned about family and data privacy to join and use CasaOS.') }}
+					<h3 class="title is-5 mb-2">{{ $t("Let more friends know") }}</h3>
+					<div class="is-size-14px">
+						{{
+							$t(
+								"Please share to friends who are concerned about family and data privacy to join and use CasaOS."
+							)
+						}}
 					</div>
 				</div>
 
 				<div class="buttons is-justify-content-center mb-6 mt-4">
-					<ShareNetwork v-for="site in shareSites" :network="site" :key="site" :url="githubUrl"
-						:title="shareTitle" hashtags="homecloud,opensource">
+					<ShareNetwork
+						v-for="site in shareSites"
+						:network="site"
+						:key="site"
+						:url="githubUrl"
+						:title="shareTitle"
+						hashtags="homecloud,opensource"
+					>
 						<b-button icon-pack="casa" :icon-left="site" :type="`is-${site}`" class="ml-3 mr-3">
 							Share
 						</b-button>
 					</ShareNetwork>
 				</div>
-
 			</div>
 		</section>
 		<!-- Modal-Card Body End -->
@@ -35,13 +44,13 @@
 </template>
 
 <script>
-import { marked } from 'marked'
+import { marked } from "marked";
 
 export default {
 	props: {
 		changeLog: {
 			type: String,
-			default: ""
+			default: "",
 		},
 	},
 	data() {
@@ -51,17 +60,13 @@ export default {
 			markdown: ``,
 			githubUrl: `https://github.com/IceWhaleTech/CasaOS`,
 			shareTitle: `I'm using CasaOS, a simple, easy-to-use, elegant open-source home cloud system, try it like me.`,
-			shareSites: [
-				'facebook',
-				'twitter',
-				'reddit'
-			]
+			shareSites: ["facebook", "twitter", "reddit"],
 		};
 	},
 	computed: {
 		markdownToHtml() {
 			return marked.parse(this.changeLog);
-		}
+		},
 	},
 	methods: {
 		/**
@@ -72,7 +77,7 @@ export default {
 			this.isUpdating = true;
 			await this.$api.sys.updateCasaOS();
 			// this.checkUpdateState();
-			this.getUpdateLogs()
+			this.getUpdateLogs();
 		},
 
 		/**
@@ -81,8 +86,7 @@ export default {
 		 */
 		getUpdateLogs() {
 			this.updateTimer = setInterval(() => {
-				this.$api.file.getContent(`/var/log/casaos/upgrade.log`).then(res => {
-
+				this.$api.file.getContent(`/var/log/vionetaos/upgrade.log`).then((res) => {
 					this.updateLogs = res.data.data;
 					if (this.updateLogs.includes(`CasaOS upgrade successfully`)) {
 						clearInterval(this.updateTimer);
@@ -92,15 +96,14 @@ export default {
 					} else if (this.updateLogs.includes(`CasaOS upgrade failed`)) {
 						this.$buefy.toast.open({
 							message: this.$t(`There seems to be a problem with the upgrade process, please try again!`),
-							type: 'is-danger'
-						})
+							type: "is-danger",
+						});
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
 							this.isUpdating = false;
 						}, 1000);
-
 					}
-				})
+				});
 			}, 200);
 		},
 		/**
@@ -109,18 +112,18 @@ export default {
 		 */
 		checkUpdateState() {
 			this.timer = setInterval(() => {
-				this.$api.sys.getVersion().then(res => {
+				this.$api.sys.getVersion().then((res) => {
 					if (res.data.success == 200) {
 						if (!res.data.data.is_need) {
 							clearInterval(this.timer);
 							location.reload();
 						}
 					}
-				})
-			}, 3000)
+				});
+			}, 3000);
 		},
 	},
-}
+};
 </script>
 
 <style lang="scss">

@@ -3,17 +3,21 @@
 		<div class="ul">
 			<!-- merge fs storage item -->
 			<div class="li" v-if="hasMergerFunction">
-				<div :class="{ active: isActived }" class="is-flex list-item new-list-item"
-					@click="filePanel.getFileList('/DATA')">
+				<div
+					:class="{ active: isActived }"
+					class="is-flex list-item new-list-item"
+					@click="filePanel.getFileList('/DATA')"
+				>
 					<div class="cover mr-2 is-flex-shrink-0 is-relative">
 						<div class="icon" @click="warning" @mouseleave="hover = false" @mouseover="hover = true">
-							<i :class="{
-								'casa-storage-merger':
-									(!dorpdown && !hover) || mergeStorageList.length === 0,
-								'casa-expand':
-									hover && !dorpdown && mergeStorageList.length !== 0,
-								'casa-expand-down': dorpdown && mergeStorageList.length !== 0,
-							}" class="casa casa-28px">
+							<i
+								:class="{
+									'casa-storage-merger': (!dorpdown && !hover) || mergeStorageList.length === 0,
+									'casa-expand': hover && !dorpdown && mergeStorageList.length !== 0,
+									'casa-expand-down': dorpdown && mergeStorageList.length !== 0,
+								}"
+								class="casa casa-28px"
+							>
 							</i>
 						</div>
 						<div v-show="!dorpdown && !hover && mergeStorageList.length !== 0" class="hint">
@@ -26,29 +30,56 @@
 					</div>
 				</div>
 				<ul v-show="dorpdown && mergeStorageList.length > 0">
-					<tree-list-item v-for="item in mergeStorageList" :key="item.path" :isActive="isActive"
-						:item="item"></tree-list-item>
+					<tree-list-item
+						v-for="item in mergeStorageList"
+						:key="item.path"
+						:isActive="isActive"
+						:item="item"
+					></tree-list-item>
 				</ul>
 			</div>
 
 			<!-- Local Storage List Start -->
-			<tree-list-item v-for="item in localStorageList" :key="item.path" :isActive="isActive"
-				:item="item"></tree-list-item>
+			<tree-list-item
+				v-for="item in localStorageList"
+				:key="item.path"
+				:isActive="isActive"
+				:item="item"
+			></tree-list-item>
 			<!-- Local Storage List End -->
 
 			<!-- Network Storage List Start -->
-			<tree-list-item v-for="item in networkStorageList" :key="item.path" :isActive="isActive" :item="item"
-				iconName="eject" @rightIconClick="umountNetwork"></tree-list-item>
+			<tree-list-item
+				v-for="item in networkStorageList"
+				:key="item.path"
+				:isActive="isActive"
+				:item="item"
+				iconName="eject"
+				@rightIconClick="umountNetwork"
+			></tree-list-item>
 			<!-- Network Storage List End -->
 
 			<!-- USB List Start -->
-			<tree-list-item v-for="item in usbStorageList" :key="item.path" :isActive="isActive" :item="item"
-				iconName="eject" @rightIconClick="umountUsb"></tree-list-item>
+			<tree-list-item
+				v-for="item in usbStorageList"
+				:key="item.path"
+				:isActive="isActive"
+				:item="item"
+				iconName="eject"
+				@rightIconClick="umountUsb"
+			></tree-list-item>
 			<!-- USB List End -->
 
 			<!-- Cloud List Start -->
-			<tree-list-item v-for="item in cloudStorageList" :key="item.path" :iconType="item.icon_type"
-				:isActive="isActive" :item="item" iconName="eject" @rightIconClick="umountCloud"></tree-list-item>
+			<tree-list-item
+				v-for="item in cloudStorageList"
+				:key="item.path"
+				:iconType="item.icon_type"
+				:isActive="isActive"
+				:item="item"
+				iconName="eject"
+				@rightIconClick="umountCloud"
+			></tree-list-item>
 			<!-- Cloud List End -->
 		</div>
 		<b-loading v-model="isLoading" :is-full-page="false"></b-loading>
@@ -365,9 +396,7 @@ export default {
 			}
 			this.$buefy.dialog.confirm({
 				title: this.$t("Data Protected"),
-				message: this.$t(
-					"Changing internal files may break the structure of the VionetaOS HD"
-				),
+				message: this.$t("Changing internal files may break the structure of the VionetaOS HD"),
 				confirmText: this.$t("Continue"),
 				cancelText: this.$t("Cancel"),
 				iconPack: "casa",
@@ -422,7 +451,7 @@ export default {
 					});
 			}, 500);
 		},
-		"casaos:file:recover"(data) {
+		"vionetaos:file:recover"(data) {
 			data = data.Properties;
 			let toastType;
 			const reg = /^["|'](.*)["|']$/g;

@@ -3,68 +3,75 @@
 		<div class="is-relative is-flex is-justify-content-center top--2rem">
 			<div class="pr-4 pl-4 has-background-white">CasaOS HD</div>
 		</div>
-		<div class="is-flex ">
+		<div class="is-flex">
 			<div class="is-flex-grow-1">
-				<div v-for="(item,index) in storageData" :key="'mergeStorage' + index" class="ml-5 is-flex mb-3">
+				<div v-for="(item, index) in storageData" :key="'mergeStorage' + index" class="ml-5 is-flex mb-3">
 					<div class="header-icon">
 						<b-icon v-show="!item.name" class="warn is-16x16" icon="danger" pack="casa"></b-icon>
 						<b-image :src="require('@/assets/img/storage/storage.png')" class="is-64x64"></b-image>
 					</div>
 					<div class="ml-3 is-flex-grow-1 is-flex is-align-items-center">
 						<div>
-							<h4 class="title is-size-14px mb-0 has-text-left one-line">{{
-									item.name || $t('undefined')
-								}}
+							<h4 class="title is-size-14px mb-0 has-text-left one-line">
+								{{ item.name || $t("undefined") }}
 								<b-tag v-if="item.isSystem" class="ml-2">CasaOS</b-tag>
 							</h4>
 
-							<p class="has-text-left is-size-7 has-text-grey-light	">{{ $t('Single Drive Storage') }},
-								<span
-								class="is-uppercase">{{ item.fsType || $t('undefined') }}</span>
+							<p class="has-text-left is-size-7 has-text-grey-light">
+								{{ $t("Single Drive Storage") }},
+								<span class="is-uppercase">{{ item.fsType || $t("undefined") }}</span>
 								<b-tooltip
-								:label="$t('CasaOS reserves 1% of file space when creating storage in EXT4 format.')"
-								append-to-body>
-									<b-icon class="mr-2 " icon="question-outline" pack="casa" size="is-small"></b-icon>
+									:label="
+										$t('CasaOS reserves 1% of file space when creating storage in EXT4 format.')
+									"
+									append-to-body
+								>
+									<b-icon class="mr-2" icon="question-outline" pack="casa" size="is-small"></b-icon>
 								</b-tooltip>
 							</p>
-							<p class="has-text-left is-size-7 ">{{
+							<p class="has-text-left is-size-7">
+								{{
 									$t("Available Total", {
-										name: item.diskName || $t('undefined'),
+										name: item.diskName || $t("undefined"),
 										avl: renderSize(item.availSize),
-										total: renderSize(item.size)
+										total: renderSize(item.size),
 									})
-								}}</p>
+								}}
+							</p>
 						</div>
-
 					</div>
 				</div>
 			</div>
 			<div class="mr-5 is-flex is-flex-direction-column-reverse is-justify-content-space-between">
-				<div class="has-text-emphasis-01 has-text-weight-medium mb-1">{{
-						renderSize(usage)
-					}}/{{ renderSize(totleSize) }}
+				<div class="has-text-emphasis-01 has-text-weight-medium mb-1">
+					{{ renderSize(usage) }}/{{ renderSize(totleSize) }}
 				</div>
-				<p v-if="usePercent >= 80"
-				   class="has-text-right is-flex is-flex-direction-row-reverse">
-					<a rel="noopener" href="https://wiki.casaos.io/zh/guides" target="_blank">{{ $t("Free up storage") }}</a>
+				<p v-if="usePercent >= 80" class="has-text-right is-flex is-flex-direction-row-reverse">
+					<a rel="noopener" href="https://wiki.vionetaos.io/zh/guides" target="_blank">{{
+						$t("Free up storage")
+					}}</a>
 				</p>
 				<div class="is-flex is-flex-direction-row-reverse">
-					<b-button :type="type" class="width" rounded size="is-small"
-							  @click="showStorageSettingsModal">{{ $t('Merge Storages') }}
+					<b-button :type="type" class="width" rounded size="is-small" @click="showStorageSettingsModal"
+						>{{ $t("Merge Storages") }}
 					</b-button>
 					<cToolTip isBlock modal="is-success"></cToolTip>
 				</div>
 			</div>
 		</div>
-		<b-progress :type="usePercent | getProgressType" :value="usePercent" class="ml-5 mr-5"
-					size="is-small"></b-progress>
+		<b-progress
+			:type="usePercent | getProgressType"
+			:value="usePercent"
+			class="ml-5 mr-5"
+			size="is-small"
+		></b-progress>
 	</div>
 </template>
 
 <script>
-import {mixin}       from '@/mixins/mixin';
+import { mixin } from "@/mixins/mixin";
 import MergeStorages from "@/components/Storage/MergeStorages.vue";
-import cToolTip      from "@/components/basicComponents/tooltip/tooltip.vue";
+import cToolTip from "@/components/basicComponents/tooltip/tooltip.vue";
 
 export default {
 	name: "storage-combination",
@@ -75,27 +82,27 @@ export default {
 	props: {
 		storageData: {
 			type: Array,
-			default: null
+			default: null,
 		},
 		type: {
 			type: String,
-			default: "is-link"
+			default: "is-link",
 		},
 	},
 	data() {
 		return {
 			isFormating: false,
-			isRemoving: false
-		}
+			isRemoving: false,
+		};
 	},
 	computed: {
 		showCombination() {
-			return this.storageData.length > 0
+			return this.storageData.length > 0;
 		},
 
 		usage() {
 			let usage = 0;
-			this.storageData.forEach(item => {
+			this.storageData.forEach((item) => {
 				usage += item.size - item.availSize;
 			});
 			return usage;
@@ -103,14 +110,14 @@ export default {
 
 		totleSize() {
 			let totleSize = 0;
-			this.storageData.forEach(item => {
+			this.storageData.forEach((item) => {
 				totleSize += Number(item.size);
 			});
-			return totleSize
+			return totleSize;
 		},
 
 		usePercent() {
-			return this.usage / this.totleSize * 100;
+			return (this.usage / this.totleSize) * 100;
 		},
 	},
 	methods: {
@@ -120,12 +127,14 @@ export default {
 			// TODO: the part is repetition
 			//  with APPs Installation Location requirement document
 			// 获取merge信息
-			let mergeStorageList
+			let mergeStorageList;
 			try {
-				mergeStorageList = await this.$api.local_storage.getMergerfsInfo().then((res) => res.data.data[0]['source_volume_uuids'])
+				mergeStorageList = await this.$api.local_storage
+					.getMergerfsInfo()
+					.then((res) => res.data.data[0]["source_volume_uuids"]);
 			} catch (e) {
-				mergeStorageList = []
-				console.log(e)
+				mergeStorageList = [];
+				console.log(e);
 			}
 
 			this.$buefy.modal.open({
@@ -133,22 +142,20 @@ export default {
 				component: MergeStorages,
 				hasModalCard: true,
 				trapFocus: true,
-				canCancel: ['escape'],
-				onCancel: () => {
-				},
+				canCancel: ["escape"],
+				onCancel: () => {},
 				events: {
 					close: () => {
 						this.$emit("reload");
-					}
+					},
 				},
 				props: {
-					mergeStorageList
-				}
-			})
+					mergeStorageList,
+				},
+			});
 		},
-
 	},
-}
+};
 </script>
 <style lang="scss" scoped>
 .border-1 {
@@ -165,7 +172,7 @@ export default {
 .top--2rem {
 	top: -1.4rem;
 	margin-top: -1rem;
-	width: 100%
+	width: 100%;
 }
 
 .combination-box {

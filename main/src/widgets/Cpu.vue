@@ -15,12 +15,20 @@
 
 			<div class="columns is-mobile mt-0 mb-1">
 				<div class="column is-half has-text-centered">
-					<radial-bar :extendContent="power + temperature" :extendContentClickable="true"
-						:percent="parseInt(cpuSeries)" label="CPU" @extendContentClick="changeFormat"></radial-bar>
+					<radial-bar
+						:extendContent="power + temperature"
+						:extendContentClickable="true"
+						:percent="parseInt(cpuSeries)"
+						label="CPU"
+						@extendContentClick="changeFormat"
+					></radial-bar>
 				</div>
 				<div class="column is-half has-text-centered">
-					<radial-bar :extendContent="renderSize(totalMemory)" :percent="parseInt(ramSeries)"
-						label="RAM"></radial-bar>
+					<radial-bar
+						:extendContent="renderSize(totalMemory)"
+						:percent="parseInt(ramSeries)"
+						label="RAM"
+					></radial-bar>
 				</div>
 			</div>
 			<div v-if="showMore">
@@ -30,9 +38,12 @@
 							<div v-for="(item, index) in containerCpuList" :key="item.title + index + '-cpu'">
 								<div v-if="!isNaN(item.usage)" class="is-flex is-size-7 is-align-items-center mb-2">
 									<div class="is-flex-grow-1 is-flex is-align-items-center is-clipped">
-										<b-image :lazy="false" :src="item.icon"
+										<b-image
+											:lazy="false"
+											:src="item.icon"
 											:src-fallback="require('@/assets/img/app/default.svg')"
-											class="is-16x16 mr-2 is-flex-shrink-0"></b-image>
+											class="is-16x16 mr-2 is-flex-shrink-0"
+										></b-image>
 										<span class="one-line">{{ item.title }}</span>
 									</div>
 									<div class="is-flex-shrink-0">{{ item.usage }}%</div>
@@ -42,11 +53,18 @@
 
 						<b-tab-item label="RAM">
 							<div v-for="(item, index) in containerRamList" :key="item.title + index + '-rem'">
-								<div v-if="!isNaN(item.usage) && renderSize(item.usage).split(' ')[0] != 0"
-									class="is-flex is-size-7 is-align-items-center mb-2">
-									<div class="is-flex-grow-1 is-flex-shrink-1 is-flex is-align-items-center is-clipped">
-										<b-image :src="item.icon" :src-fallback="require('@/assets/img/app/default.svg')"
-											class="is-16x16 mr-2 is-flex-shrink-0"></b-image>
+								<div
+									v-if="!isNaN(item.usage) && renderSize(item.usage).split(' ')[0] != 0"
+									class="is-flex is-size-7 is-align-items-center mb-2"
+								>
+									<div
+										class="is-flex-grow-1 is-flex-shrink-1 is-flex is-align-items-center is-clipped"
+									>
+										<b-image
+											:src="item.icon"
+											:src-fallback="require('@/assets/img/app/default.svg')"
+											class="is-16x16 mr-2 is-flex-shrink-0"
+										></b-image>
 										<span class="one-line">{{ item.title }}</span>
 									</div>
 									<div class="is-flex-shrink-0">{{ item.usage | renderSize }}</div>
@@ -224,7 +242,8 @@ export default {
 							return 0;
 						}
 					};
-					const used_memory = "stats" in item.data.memory_stats ? item.data.memory_stats.usage - getCacheValue(item) : NaN;
+					const used_memory =
+						"stats" in item.data.memory_stats ? item.data.memory_stats.usage - getCacheValue(item) : NaN;
 					id++;
 					return {
 						id: id,
@@ -260,7 +279,7 @@ export default {
 		},
 	},
 	sockets: {
-		"casaos:system:utilization"(res) {
+		"vionetaos:system:utilization"(res) {
 			let data = res.Properties;
 			let cpu = JSON.parse(data.sys_cpu);
 			let mem = JSON.parse(data.sys_mem);

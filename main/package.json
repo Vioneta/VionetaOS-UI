@@ -1,11 +1,11 @@
 {
-  "name": "casaos-main",
+  "name": "vionetaos-main",
   "version": "v0.4.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode dev",
     "postinstall": "patch-package",
-    "build": "node message_bus.build.js && vue-cli-service build --dest ../build/sysroot/var/lib/casaos/www/ --mode production",
+    "build": "node message_bus.build.js && vue-cli-service build --dest ../build/sysroot/var/lib/vionetaos/www/ --mode production",
     "lint": "vue-cli-service lint",
     "build:messagebus": "node message_bus.build.js"
   },
@@ -15,8 +15,8 @@
   "packageManager": "yarn@3.5.1",
   "dependencies": {
     "@fontsource/roboto": "^5.0.5",
-    "@icewhale/casaos-appmanagement-openapi": "latest",
-    "@icewhale/casaos-openapi": "latest",
+    "@icewhale/vionetaos-appmanagement-openapi": "latest",
+    "@icewhale/vionetaos-openapi": "latest",
     "@icewhale/icewhale-files-openapi": "latest",
     "@kangc/v-md-editor": "^1.7.11",
     "@mdi/font": "^6.9.96",
@@ -47,7 +47,7 @@
     "gsap": "^3.12.2",
     "hitbox-js": "^1.0.2",
     "hls.js": "^1.4.14",
-    "iconfonts-casaos": "^1.0.4",
+    "iconfonts-vionetaos": "^1.0.4",
     "intersection-observer": "^0.12.2",
     "is-valid-hostname": "^1.0.2",
     "jsonlint-mod": "^1.7.6",

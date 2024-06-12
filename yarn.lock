@@ -1672,18 +1672,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@icewhale/casaos-appmanagement-openapi@npm:latest":
+"@icewhale/vionetaos-appmanagement-openapi@npm:latest":
   version: 0.4.8-alpha1
-  resolution: "@icewhale/casaos-appmanagement-openapi@npm:0.4.8-alpha1"
+  resolution: "@icewhale/vionetaos-appmanagement-openapi@npm:0.4.8-alpha1"
   dependencies:
     axios: ^1.1.0
   checksum: 8a7ae5e99352e97e76597969019d40f77e04c8509a1d81c1eac1949b431249f590bde6432c42d1dc257d730c109a136c7734293dee2039ee15f97e42c7607dee
   languageName: node
   linkType: hard
 
-"@icewhale/casaos-openapi@npm:latest":
+"@icewhale/vionetaos-openapi@npm:latest":
   version: 0.4.4-alpha3-50816c6
-  resolution: "@icewhale/casaos-openapi@npm:0.4.4-alpha3-50816c6"
+  resolution: "@icewhale/vionetaos-openapi@npm:0.4.4-alpha3-50816c6"
   dependencies:
     axios: ^1.1.0
   checksum: 10c0228a5c23f11c540ab9eb1adf568e6f78999eed37795065f8ab04fc2ddd491502fa215737fe99384df3ad4e37c1a58d17692e41a5d353f38a967d0ce0396d
@@ -4830,15 +4830,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"casaos-main@workspace:main":
+"vionetaos-main@workspace:main":
   version: 0.0.0-use.local
-  resolution: "casaos-main@workspace:main"
+  resolution: "vionetaos-main@workspace:main"
   dependencies:
     "@babel/core": ^7.22.9
     "@babel/preset-typescript": ^7.22.5
     "@fontsource/roboto": ^5.0.5
-    "@icewhale/casaos-appmanagement-openapi": latest
-    "@icewhale/casaos-openapi": latest
+    "@icewhale/vionetaos-appmanagement-openapi": latest
+    "@icewhale/vionetaos-openapi": latest
     "@icewhale/icewhale-files-openapi": latest
     "@kangc/v-md-editor": ^1.7.11
     "@mdi/font": ^6.9.96
@@ -4880,7 +4880,7 @@ __metadata:
     gsap: ^3.12.2
     hitbox-js: ^1.0.2
     hls.js: ^1.4.14
-    iconfonts-casaos: ^1.0.4
+    iconfonts-vionetaos: ^1.0.4
     intersection-observer: ^0.12.2
     is-valid-hostname: ^1.0.2
     jsonlint-mod: ^1.7.6
@@ -9552,9 +9552,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconfonts-casaos@npm:^1.0.4":
+"iconfonts-vionetaos@npm:^1.0.4":
   version: 1.0.4
-  resolution: "iconfonts-casaos@npm:1.0.4"
+  resolution: "iconfonts-vionetaos@npm:1.0.4"
   checksum: 7b4ce4b986a4141e82c8c9a82043ccb53b5c6a12b0e298747249ccefed8d00ba4cabdf81c5e9ba33945f1fd21472d30158683e42a9579ae3c754c4266ef3ff96
   languageName: node
   linkType: hard
@@ -17176,7 +17176,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vionetaos@workspace:."
   dependencies:
-    "@icewhale/casaos-appmanagement-openapi": latest
+    "@icewhale/vionetaos-appmanagement-openapi": latest
     csslint: ^1.0.5
     htmlhint: ^1.1.4
     js-yaml: ^4.1.0

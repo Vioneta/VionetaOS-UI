@@ -6,17 +6,32 @@
 			<!-- Header Start -->
 			<div class="widget-header is-flex mr-0">
 				<div class="widget-title is-flex-grow-1">
-					{{ $t('Network Status') }}
+					{{ $t("Network Status") }}
 				</div>
 				<div class="is-flex-shrink-0">
-					<b-dropdown v-if="initNetwork.length > 0" v-model="networkId" :mobile-modal="false" animation="fade1"
-						aria-role="list" class="netowrk-dropdown" position="is-bottom-left">
+					<b-dropdown
+						v-if="initNetwork.length > 0"
+						v-model="networkId"
+						:mobile-modal="false"
+						animation="fade1"
+						aria-role="list"
+						class="netowrk-dropdown"
+						position="is-bottom-left"
+					>
 						<template #trigger="{ active }">
-							<b-button :icon-right="active ? 'up-outline' : 'down-outline'"
-								:label="initNetwork[networkId].name" icon-pack="casa" type="is-primary" />
+							<b-button
+								:icon-right="active ? 'up-outline' : 'down-outline'"
+								:label="initNetwork[networkId].name"
+								icon-pack="casa"
+								type="is-primary"
+							/>
 						</template>
-						<b-dropdown-item v-for="(item, index) in initNetwork" :key="'net' + index" :value="index"
-							aria-role="listitem">
+						<b-dropdown-item
+							v-for="(item, index) in initNetwork"
+							:key="'net' + index"
+							:value="index"
+							aria-role="listitem"
+						>
 							{{ item.name }}
 						</b-dropdown-item>
 					</b-dropdown>
@@ -25,20 +40,23 @@
 			<!-- Header End -->
 			<!-- Chart Start -->
 			<div class="chart-container">
-				<vue-apex-charts ref="chart" :options="chartOptions" :series="networks[networkId]" height="130"
-					type="area" />
+				<vue-apex-charts
+					ref="chart"
+					:options="chartOptions"
+					:series="networks[networkId]"
+					height="130"
+					type="area"
+				/>
 			</div>
 			<!-- Chart End -->
 			<!-- Status Start -->
-			<div class="is-flex ">
-				<div class=" is-flex-shrink-0 is-size-65 is-flex is-align-items-center has-text-grey-100">
+			<div class="is-flex">
+				<div class="is-flex-shrink-0 is-size-65 is-flex is-align-items-center has-text-grey-100">
 					<div>
-						<b-icon class="up" icon="up-arrow" pack="casa" size="is-small">
-						</b-icon>
-						{{ currentUpSpeed * 1024 | renderSize }}/s
-						<b-icon class="down ml-2" icon="down-arrow" pack="casa" size="is-small">
-						</b-icon>
-						{{ currentDownSpeed * 1024 | renderSize }}/s
+						<b-icon class="up" icon="up-arrow" pack="casa" size="is-small"> </b-icon>
+						{{ (currentUpSpeed * 1024) | renderSize }}/s
+						<b-icon class="down ml-2" icon="down-arrow" pack="casa" size="is-small"> </b-icon>
+						{{ (currentDownSpeed * 1024) | renderSize }}/s
 					</div>
 				</div>
 			</div>
@@ -49,17 +67,17 @@
 
 <script>
 // import VueApexCharts from 'vue-apexcharts'
-import { mixin } from '@/mixins/mixin';
+import { mixin } from "@/mixins/mixin";
 
 export default {
 	mixins: [mixin],
 	// eslint-disable-next-line vue/multi-word-component-names
-	name: 'network',
+	name: "network",
 	icon: "network-outline",
 	title: "Network Status",
 	initShow: true,
 	components: {
-		VueApexCharts: () => import("vue-apexcharts")
+		VueApexCharts: () => import("vue-apexcharts"),
 	},
 	data() {
 		return {
@@ -91,7 +109,7 @@ export default {
 					enabled: false,
 				},
 				stroke: {
-					curve: 'smooth',
+					curve: "smooth",
 					width: 1,
 				},
 				grid: {
@@ -102,25 +120,25 @@ export default {
 					},
 					yaxis: {
 						lines: {
-							show: true
-						}
+							show: true,
+						},
 					},
 				},
 				tooltip: {
 					enabled: false,
 				},
 				xaxis: {
-					type: 'numeric',
+					type: "numeric",
 					range: 60,
 					labels: {
 						show: false,
 					},
 					tooltip: {
-						enabled: false
+						enabled: false,
 					},
 					axisBorder: {
 						show: false,
-					}
+					},
 				},
 				yaxis: {
 					labels: {
@@ -133,10 +151,10 @@ export default {
 						minHeight: undefined,
 						maxHeight: 120,
 						style: {
-							colors: '#ffffff',
-							fontSize: '10px',
+							colors: "#ffffff",
+							fontSize: "10px",
 							fontWeight: 400,
-							cssClass: 'apexcharts-xaxis-label',
+							cssClass: "apexcharts-xaxis-label",
 						},
 						offsetX: 0,
 						offsetY: 0,
@@ -147,97 +165,103 @@ export default {
 				},
 				legend: {
 					show: false,
-					position: 'top',
-					horizontalAlign: 'left'
-				}
+					position: "top",
+					horizontalAlign: "left",
+				},
 			},
-		}
+		};
 	},
 	created() {
-		this.initNetwork = this.$store.state.hardwareInfo.net
+		this.initNetwork = this.$store.state.hardwareInfo.net;
 
 		// select the network last time
-		localStorage.getItem('networkId') && (this.networkId = localStorage.getItem('networkId'))
-
+		localStorage.getItem("networkId") && (this.networkId = localStorage.getItem("networkId"));
 	},
 
 	watch: {
 		networkId(val, oldVal) {
 			if (val !== oldVal) {
-				localStorage.setItem('networkId', val)
+				localStorage.setItem("networkId", val);
 			}
-		}
+		},
 	},
 
 	methods: {
 		buildDatas(data) {
 			if (data.length == 0) {
-				return
+				return;
 			}
 			data.forEach((el, index) => {
 				if (this.networks[index] === undefined) {
 					this.networks[index] = [
 						{
-							name: 'Up',
+							name: "Up",
 							data: ["0"],
 							cacheData: 0,
-							cacheTime: 0
+							cacheTime: 0,
 						},
 						{
-							name: 'Down',
+							name: "Down",
 							data: ["0"],
 							cacheData: 0,
-							cacheTime: 0
-						}
-					]
+							cacheTime: 0,
+						},
+					];
 				}
 				// Send Data
 				if (this.networks[index][0].data.length >= 60) {
-					this.networks[index][0].data.shift()
+					this.networks[index][0].data.shift();
 				}
 				if (this.networks[index][0].cacheData > 0) {
-					const timeGap = this.networks[index][0].cacheTime == 0 ? 2 : el.time - this.networks[index][0].cacheTime
-					this.networks[index][0].data.push(this.covertToKB((el.bytesSent - this.networks[index][0].cacheData) / timeGap))
+					const timeGap =
+						this.networks[index][0].cacheTime == 0 ? 2 : el.time - this.networks[index][0].cacheTime;
+					this.networks[index][0].data.push(
+						this.covertToKB((el.bytesSent - this.networks[index][0].cacheData) / timeGap)
+					);
 				}
 				this.networks[index][0].cacheData = el.bytesSent;
 				this.networks[index][0].cacheTime = el.time;
 
 				// RecvData
 				if (this.networks[index][1].data.length >= 60) {
-					this.networks[index][1].data.shift()
+					this.networks[index][1].data.shift();
 				}
 				if (this.networks[index][1].cacheData > 0) {
-					const timeGap = this.networks[index][1].cacheTime == 0 ? 2 : el.time - this.networks[index][1].cacheTime
-					this.networks[index][1].data.push(this.covertToKB((el.bytesRecv - this.networks[index][1].cacheData) / timeGap))
+					const timeGap =
+						this.networks[index][1].cacheTime == 0 ? 2 : el.time - this.networks[index][1].cacheTime;
+					this.networks[index][1].data.push(
+						this.covertToKB((el.bytesRecv - this.networks[index][1].cacheData) / timeGap)
+					);
 				}
 				this.networks[index][1].cacheData = el.bytesRecv;
 				this.networks[index][1].cacheTime = el.time;
 			});
-			this.networkId = this.networkId > this.networks.length - 1 ? 0 : this.networkId
-			this.$refs.chart?.updateSeries(this.networks[this.networkId])
+			this.networkId = this.networkId > this.networks.length - 1 ? 0 : this.networkId;
+			this.$refs.chart?.updateSeries(this.networks[this.networkId]);
 			if (this.networks) {
-				const upSpeed = this.networks[this.networkId][0].data[this.networks[this.networkId][0].data.length - 1]
-				const downSpeed = this.networks[this.networkId][1].data[this.networks[this.networkId][1].data.length - 1]
-				this.currentUpSpeed = isNaN(upSpeed) ? 0 : upSpeed
-				this.currentDownSpeed = isNaN(downSpeed) ? 0 : downSpeed
+				const upSpeed = this.networks[this.networkId][0].data[this.networks[this.networkId][0].data.length - 1];
+				const downSpeed =
+					this.networks[this.networkId][1].data[this.networks[this.networkId][1].data.length - 1];
+				this.currentUpSpeed = isNaN(upSpeed) ? 0 : upSpeed;
+				this.currentDownSpeed = isNaN(downSpeed) ? 0 : downSpeed;
 			}
 		},
 		covertToKB(bytes) {
 			return (bytes / 1024).toFixed(0) > 0 ? (bytes / 1024).toFixed(0) : 0;
-		}
+		},
 	},
 	sockets: {
 		// sys_net(data) {
 		// 	this.initNetwork = data.data
 		// 	this.buildDatas(this.initNetwork)
 		// },
-		"casaos:system:utilization"(res) {
-			let data = res.Properties
-			this.initNetwork = JSON.parse(data.sys_net)
-			this.buildDatas(this.initNetwork)
-		}
-	}
-}
+		"vionetaos:system:utilization"(res) {
+			let data = res.Properties;
+			this.initNetwork = JSON.parse(data.sys_net);
+			this.buildDatas(this.initNetwork);
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>

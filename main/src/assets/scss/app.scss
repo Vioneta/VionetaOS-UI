@@ -1,8 +1,8 @@
 // Import Font
-@import '~@fontsource/roboto/300.css';
-@import '~@fontsource/roboto/400.css';
-@import '~@fontsource/roboto/500.css';
-@import '~@fontsource/roboto/700.css';
+@import "~@fontsource/roboto/300.css";
+@import "~@fontsource/roboto/400.css";
+@import "~@fontsource/roboto/500.css";
+@import "~@fontsource/roboto/700.css";
 
 // Import materialdesignicons
 @import "~@mdi/font/css/materialdesignicons.min.css";
@@ -11,7 +11,7 @@
 @import "~swiper/css/swiper.min.css";
 
 // Import CasaOS IconFont
-@import '~iconfonts-casaos/casaos-iconfonts.css';
+@import "~iconfonts-vionetaos/vionetaos-iconfonts.css";
 
 // Custom Variables
 @import "common/variables";
@@ -47,4 +47,3 @@
 
 // Pages and Components
 @import "components/filebrowser";
-

@@ -3,16 +3,20 @@
 		<!-- Modal-Card Header Start -->
 		<header class="modal-card-head">
 			<div class="is-flex-grow-1">
-				<h3 class="title is-header">{{ $t('Update') }}</h3>
+				<h3 class="title is-header">{{ $t("Update") }}</h3>
 			</div>
-			<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close');" />
+			<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close')" />
 		</header>
 		<!-- Modal-Card Header End -->
 		<!-- Modal-Card Body Start -->
-		<section class="modal-card-body ">
+		<section class="modal-card-body">
 			<div class="node-card fixed-height">
-				<div v-if="!isUpdating" class="update-info-container  is-size-14px" v-dompurify-html="markdownToHtml"></div>
-				<div v-else class="update-info-container  is-size-14px" v-dompurify-html="updateMarkdownHtml"></div>
+				<div
+					v-if="!isUpdating"
+					class="update-info-container is-size-14px"
+					v-dompurify-html="markdownToHtml"
+				></div>
+				<div v-else class="update-info-container is-size-14px" v-dompurify-html="updateMarkdownHtml"></div>
 			</div>
 		</section>
 		<!-- Modal-Card Body End -->
@@ -20,8 +24,14 @@
 		<footer class="modal-card-foot is-flex is-align-items-center">
 			<div class="is-flex-grow-1"></div>
 			<div>
-				<b-button :label="$t('Upgrade Now')" :loading="isUpdating" expaned rounded type="is-primary"
-						  @click="updateSystem"/>
+				<b-button
+					:label="$t('Upgrade Now')"
+					:loading="isUpdating"
+					expaned
+					rounded
+					type="is-primary"
+					@click="updateSystem"
+				/>
 			</div>
 		</footer>
 		<!-- Modal-Card Footer End -->
@@ -29,13 +39,13 @@
 </template>
 
 <script>
-import {marked} from 'marked'
+import { marked } from "marked";
 
 export default {
 	props: {
 		changeLog: {
 			type: String,
-			default: ""
+			default: "",
 		},
 	},
 	data() {
@@ -44,7 +54,7 @@ export default {
 			updateTimer: 0,
 			isUpdating: false,
 			markdown: ``,
-			updateLogs: ``
+			updateLogs: ``,
 		};
 	},
 	computed: {
@@ -52,9 +62,8 @@ export default {
 			return marked.parse(this.changeLog);
 		},
 		updateMarkdownHtml() {
-
 			return marked.parse(this.updateLogs);
-		}
+		},
 	},
 	methods: {
 		/**
@@ -65,7 +74,7 @@ export default {
 			this.isUpdating = true;
 			await this.$api.sys.updateCasaOS();
 			// this.checkUpdateState();
-			this.getUpdateLogs()
+			this.getUpdateLogs();
 		},
 
 		/**
@@ -74,29 +83,27 @@ export default {
 		 */
 		getUpdateLogs() {
 			this.updateTimer = setInterval(() => {
-				this.$api.file.getContent(`/var/log/casaos/upgrade.log`).then(res => {
-
+				this.$api.file.getContent(`/var/log/vionetaos/upgrade.log`).then((res) => {
 					this.updateLogs = res.data.data;
 					if (this.updateLogs.includes(`CasaOS upgrade successfully`)) {
-						localStorage.setItem('is_update', 'true')
+						localStorage.setItem("is_update", "true");
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
 							this.$router.replace({
-								path: '/logout'
-							})
+								path: "/logout",
+							});
 						}, 1000);
 					} else if (this.updateLogs.includes(`CasaOS upgrade failed`)) {
 						this.$buefy.toast.open({
 							message: this.$t(`There seems to be a problem with the upgrade process, please try again!`),
-							type: 'is-danger'
-						})
+							type: "is-danger",
+						});
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
 							this.isUpdating = false;
 						}, 1000);
-
 					}
-				})
+				});
 			}, 200);
 		},
 		/**
@@ -105,18 +112,18 @@ export default {
 		 */
 		checkUpdateState() {
 			this.timer = setInterval(() => {
-				this.$api.sys.getVersion().then(res => {
+				this.$api.sys.getVersion().then((res) => {
 					if (res.data.success == 200) {
 						if (!res.data.data.is_need) {
 							clearInterval(this.timer);
 							location.reload();
 						}
 					}
-				})
-			}, 3000)
+				});
+			}, 3000);
 		},
 	},
-}
+};
 </script>
 
 <style lang="scss">

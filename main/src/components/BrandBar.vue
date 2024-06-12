@@ -1,7 +1,7 @@
 <template>
 	<div class="brand-bar is-flex is-align-items-flex-end has-text-white">
 		<figure class="image _is-136x26 mb-3">
-			<img alt="logo" srcset="../assets/img/logo/logo.svg 2x, ../assets/img/logo/logo.png 1x">
+			<img alt="logo" srcset="../assets/img/logo/logo.svg 2x, ../assets/img/logo/logo.png 1x" />
 		</figure>
 		<span v-if="!rssShow || rss.length === 0" class="intro-text ml-4">Made by Vioneta Limited</span>
 		<!-- <span v-else class="window ml-4">
@@ -14,38 +14,37 @@
 				</li>
 			</ul>
 		</span> -->
-
 	</div>
 </template>
 
 <script>
 import Parser from "rss-parser";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 export default {
 	name: "brand-bar",
 	components: {},
 	computed: {
 		rssShow() {
-			let which = this.$store.state.rssSwitch
+			let which = this.$store.state.rssSwitch;
 			if (which) {
-				this.parseFeed()
+				this.parseFeed();
 			}
-			return which
+			return which;
 		},
 		line() {
-			return this.rss.length
+			return this.rss.length;
 		},
 		perc() {
-			return -(this.line - 1) / this.line * 100 + '%'
+			return (-(this.line - 1) / this.line) * 100 + "%";
 		},
 		isShow() {
-			return this.$route.path !== '/login' || this.$route.path !== '/welcome'
+			return this.$route.path !== "/login" || this.$route.path !== "/welcome";
 		},
 	},
 	watch: {
 		isShow(val) {
-			val && this.parseFeed()
-		}
+			val && this.parseFeed();
+		},
 	},
 	data() {
 		return {
@@ -55,27 +54,32 @@ export default {
 	methods: {
 		async parseFeed() {
 			let parser = new Parser();
-			let params = await this.$api.file.getContent('/var/lib/casaos/baseinfo.conf').then(res => {
-				return JSON.parse(res.data.data)
-			})
-			this.$store.commit('SET_DEVICE_ID', params.i)
-			params.l = localStorage.getItem('lang') ? localStorage.getItem('lang') : navigator.language.toLowerCase().replace("-", "_");
-			let stringify = btoa(encodeURIComponent(JSON.stringify(params)))
-			let feed = await parser.parseURL('https://blog.casaos.io/feed/tag/dashboard/?key=' + stringify);
-			const newFeed = feed.items.map(item => {
+			let params = await this.$api.file.getContent("/var/lib/vionetaos/baseinfo.conf").then((res) => {
+				return JSON.parse(res.data.data);
+			});
+			this.$store.commit("SET_DEVICE_ID", params.i);
+			params.l = localStorage.getItem("lang")
+				? localStorage.getItem("lang")
+				: navigator.language.toLowerCase().replace("-", "_");
+			let stringify = btoa(encodeURIComponent(JSON.stringify(params)));
+			let feed = await parser.parseURL("https://blog.vionetaos.io/feed/tag/dashboard/?key=" + stringify);
+			const newFeed = feed.items.map((item) => {
 				return {
 					title: item.title,
-					link: DOMPurify.sanitize(item.link, { ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.1-9]+(?:[^a-z+.1-9]|$))/i })
-				}
-			})
-			this.rss = newFeed
+					link: DOMPurify.sanitize(item.link, {
+						ALLOWED_URI_REGEXP:
+							/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.1-9]+(?:[^a-z+.1-9]|$))/i,
+					}),
+				};
+			});
+			this.rss = newFeed;
 		},
 
 		gotoLink(link) {
-			window.open(link, '_blank')
-		}
-	}
-}
+			window.open(link, "_blank");
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
@@ -165,7 +169,6 @@ export default {
 
 	li:hover {
 		text-decoration: underline;
-
 	}
 }
 

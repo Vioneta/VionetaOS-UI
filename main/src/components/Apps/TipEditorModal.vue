@@ -3,11 +3,11 @@
 		<!-- Modal-Card Header Start -->
 		<header class="modal-card-head">
 			<div class="is-flex-grow-1">
-				<h3 class="title is-header">{{ $t('Tips') }}</h3>
+				<h3 class="title is-header">{{ $t("Tips") }}</h3>
 			</div>
 			<div>
 				<div class="is-flex is-align-items-center">
-					<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close');" />
+					<b-icon class="close-button" icon="close-outline" pack="casa" @click.native="$emit('close')" />
 				</div>
 			</div>
 		</header>
@@ -15,13 +15,26 @@
 
 		<!-- Modal-Card Body Start -->
 		<section class="modal-card-body">
-			<VMdEditor v-model="tips" :mode="controlEditorState" :placeholder="$t('Something to remember eg. password')"
-				left-toolbar right-toolbar>
+			<VMdEditor
+				v-model="tips"
+				:mode="controlEditorState"
+				:placeholder="$t('Something to remember eg. password')"
+				left-toolbar
+				right-toolbar
+			>
 			</VMdEditor>
 			<div v-if="name" class="is-flex is-flex-direction-row-reverse mt-2">
-				<b-icon class="is-clickable"
-					:class="{ 'has-text-grey-800': !isEditing, 'has-text-green-default': isDifferentiation, 'has-text-grey-400': !isDifferentiation && isEditing }"
-					:icon="icon" pack="casa" @click.native="toggle"></b-icon>
+				<b-icon
+					class="is-clickable"
+					:class="{
+						'has-text-grey-800': !isEditing,
+						'has-text-green-default': isDifferentiation,
+						'has-text-grey-400': !isDifferentiation && isEditing,
+					}"
+					:icon="icon"
+					pack="casa"
+					@click.native="toggle"
+				></b-icon>
 			</div>
 		</section>
 		<!-- Modal-Card Body End -->
@@ -30,7 +43,8 @@
 		<footer v-if="!name" class="modal-card-foot is-flex is-align-items-center">
 			<div class="is-flex-grow-1"></div>
 			<div class="is-flex is-flex-direction-row-reverse">
-				<b-button rounded size="is-small" type="is-primary" @click="$emit('submit') && $emit('close')">{{ $t('Next Steps') }}
+				<b-button rounded size="is-small" type="is-primary" @click="$emit('submit') && $emit('close')"
+					>{{ $t("Next Steps") }}
 				</b-button>
 			</div>
 		</footer>
@@ -41,11 +55,11 @@
 <script>
 import YAML from "yaml";
 import merge from "lodash/merge";
-import VMdEditor from '@kangc/v-md-editor';
-import '@kangc/v-md-editor/lib/style/base-editor.css';
-import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
-import '@kangc/v-md-editor/lib/theme/style/github.css';
-import hljs from 'highlight.js';
+import VMdEditor from "@kangc/v-md-editor";
+import "@kangc/v-md-editor/lib/style/base-editor.css";
+import githubTheme from "@kangc/v-md-editor/lib/theme/github.js";
+import "@kangc/v-md-editor/lib/theme/style/github.css";
+import hljs from "highlight.js";
 import { ice_i18n } from "@/mixins/base/common-i18n";
 
 VMdEditor.use(githubTheme, {
@@ -56,70 +70,69 @@ VMdEditor.use(githubTheme, {
 export default {
 	name: "TipEditorModal",
 	components: {
-		VMdEditor
+		VMdEditor,
 	},
 	data() {
 		return {
 			isEditing: false,
-			tips: '',
-			tempTips: '',
-			controlEditorState: 'preview',
-			icon: 'edit-outline'
-		}
+			tips: "",
+			tempTips: "",
+			controlEditorState: "preview",
+			icon: "edit-outline",
+		};
 	},
 	props: {
 		composeData: {
 			type: Object,
-			required: true
+			required: true,
 		},
 		name: {
 			type: String,
 			// required: true
-		}
+		},
 	},
 	computed: {
 		isDifferentiation() {
-			return this.tempTips !== this.tips
+			return this.tempTips !== this.tips;
 		},
 	},
 	watch: {
 		isEditing(val) {
 			if (val) {
 				// editor is editable
-				this.controlEditorState = 'edit'
-				this.icon = 'check-outline'
+				this.controlEditorState = "edit";
+				this.icon = "check-outline";
 			} else {
 				// editor is not editable
-				this.controlEditorState = 'preview'
-				this.icon = 'edit-outline'
+				this.controlEditorState = "preview";
+				this.icon = "edit-outline";
 			}
-			return this.isEditing
+			return this.isEditing;
 		},
 		composeData: {
 			handler() {
 				//Get tips in compose.
-				let getValueByPath = this.composeData['x-casaos']
-				if (getValueByPath?.['tips']?.['custom'] || getValueByPath?.['tips']?.['before_install']) {
-					this.tips = getValueByPath['tips']['custom'] || ice_i18n(getValueByPath['tips']['before_install'])
+				let getValueByPath = this.composeData["x-vionetaos"];
+				if (getValueByPath?.["tips"]?.["custom"] || getValueByPath?.["tips"]?.["before_install"]) {
+					this.tips = getValueByPath["tips"]["custom"] || ice_i18n(getValueByPath["tips"]["before_install"]);
 				} else {
-					this.tips = '';
+					this.tips = "";
 				}
 				// init tempTips
 				this.tempTips = this.tips;
 			},
-			immediate: true
-		}
+			immediate: true,
+		},
 	},
-	mounted() {
-	},
+	mounted() {},
 	methods: {
 		/*
-		* 1、进入编辑状态
-		* 2、保存
-		* */
+		 * 1、进入编辑状态
+		 * 2、保存
+		 * */
 		toggle() {
-			this.isEditing = !this.isEditing
-			console.log('isDifferentiaation', this.isDifferentiation)
+			this.isEditing = !this.isEditing;
+			console.log("isDifferentiaation", this.isDifferentiation);
 			if (this.isDifferentiation) {
 				this.save();
 			}
@@ -128,26 +141,29 @@ export default {
 		save() {
 			// 更新
 			// TODO 因为异步，不清楚是否保存成功
-			this.tempTips = this.tips
-			let realComposeData = this.getCompleteComposeData()
-			this.$openAPI.appManagement.compose.applyComposeAppSettings(this.name, YAML.stringify(realComposeData)).then(res => {
-				if (res.status === 200) {
-					this.$buefy.toast.open({
-						message: res.data.message,
-						type: 'is-success',
-						position: 'is-top',
-						duration: 5000
-					})
-				}
-			}).catch(e => {
-				console.log('Error in saving tips:', e)
-				this.$buefy.toast.open({
-					message: e.response.data.data,
-					type: 'is-danger',
-					position: 'is-top',
-					duration: 5000
+			this.tempTips = this.tips;
+			let realComposeData = this.getCompleteComposeData();
+			this.$openAPI.appManagement.compose
+				.applyComposeAppSettings(this.name, YAML.stringify(realComposeData))
+				.then((res) => {
+					if (res.status === 200) {
+						this.$buefy.toast.open({
+							message: res.data.message,
+							type: "is-success",
+							position: "is-top",
+							duration: 5000,
+						});
+					}
 				})
-			})
+				.catch((e) => {
+					console.log("Error in saving tips:", e);
+					this.$buefy.toast.open({
+						message: e.response.data.data,
+						type: "is-danger",
+						position: "is-top",
+						duration: 5000,
+					});
+				});
 		},
 		getCompleteComposeData() {
 			/*let lines = this.tips.split('\n');
@@ -161,16 +177,16 @@ export default {
 			});*/
 
 			let result = merge(this.composeData, {
-				'x-casaos': {
+				"x-vionetaos": {
 					tips: {
-						custom: this.tips
-					}
-				}
-			})
-			return result
-		}
+						custom: this.tips,
+					},
+				},
+			});
+			return result;
+		},
 	},
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -231,8 +247,7 @@ export default {
 						line-height: 20px;
 						/* identical to box height, or 143% */
 
-						font-feature-settings: 'pnum' on, 'lnum' on;
-
+						font-feature-settings: "pnum" on, "lnum" on;
 					}
 				}
 			}
