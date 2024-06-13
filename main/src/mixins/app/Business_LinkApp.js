@@ -4,47 +4,47 @@
  * @FilePath: /CasaOS-UI/src/mixins/app/Business_LinkApp.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
 /* LinkApp mateData:
-*  item.hostname
-*  item.icon
-*  item.name
-*  item.app_type
-*  item.status
-*  item.id
-* */
-import uniqWith from 'lodash/uniqWith'
+ *  item.hostname
+ *  item.icon
+ *  item.name
+ *  item.app_type
+ *  item.status
+ *  item.id
+ * */
+import uniqWith from "lodash/uniqWith";
 
 export default {
 	methods: {
 		async getLinkAppList() {
 			try {
 				// forecast null or String.
-				let LinkAppList = await this.$api.users.getLinkAppDetail().then(v => v.data.data || []);
+				let LinkAppList = await this.$api.users.getLinkAppDetail().then((v) => v.data.data || []);
 				LinkAppList = this.transferLinkAppList(LinkAppList);
-				return LinkAppList
+				return LinkAppList;
 			} catch (e) {
-				console.error('getLinkAppList', e)
+				console.error("getLinkAppList", e);
 			}
 		},
 
 		setLinkAppList(LinkAppList) {
 			if (LinkAppList === "") {
-				LinkAppList = []
+				LinkAppList = [];
 			}
 			const stringifyLinkAppList = JSON.stringify(LinkAppList);
 
-			return this.$api.users.saveLinkAppDetail(stringifyLinkAppList).then(res => {
+			return this.$api.users.saveLinkAppDetail(stringifyLinkAppList).then((res) => {
 				return res;
 			});
 		},
 
 		async deleteLinkAppByName(name) {
 			let LinkAppList = await this.getLinkAppList();
-			LinkAppList = LinkAppList.filter(item => item.name !== name);
+			LinkAppList = LinkAppList.filter((item) => item.name !== name);
 			return this.setLinkAppList(LinkAppList);
 		},
 
@@ -52,8 +52,8 @@ export default {
 		transferLinkAppList(LinkAppList) {
 			LinkAppList = uniqWith(LinkAppList, (a, b) => {
 				return a.name === b.name;
-			})
-			LinkAppList.forEach(item => {
+			});
+			LinkAppList.forEach((item) => {
 				if (item.type) {
 					item.app_type = item.type;
 					item.hostname = item.host;
@@ -63,9 +63,8 @@ export default {
 					delete item.state;
 					delete item.custom_id;
 				}
-			})
+			});
 			return LinkAppList;
-		}
-	}
-}
-
+		},
+	},
+};

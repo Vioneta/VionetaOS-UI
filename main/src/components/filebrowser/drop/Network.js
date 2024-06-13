@@ -4,7 +4,7 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/drop/Network.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
@@ -12,14 +12,13 @@ window.URL = window.URL || window.webkitURL;
 window.isRtcSupported = !!(window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection);
 
 export class ServerConnection {
-
 	constructor(url, bus) {
 		this._connect(url);
 		this.selfId = "";
 		this.bus = bus;
 		this.bus.$on("beforeunload", () => this._disconnect());
 		this.bus.$on("pagehide", () => this._disconnect());
-		document.addEventListener('visibilitychange', () => this._onVisibilityChange());
+		document.addEventListener("visibilitychange", () => this._onVisibilityChange());
 	}
 
 	_connect(url) {
@@ -27,45 +26,44 @@ export class ServerConnection {
 		clearTimeout(this._reconnectTimer);
 		if (this._isConnected() || this._isConnecting()) return;
 		const ws = new WebSocket(url);
-		ws.binaryType = 'arraybuffer';
-		ws.onopen = () => console.log('WS: server connected');
-		ws.onmessage = e => this._onMessage(e.data);
+		ws.binaryType = "arraybuffer";
+		ws.onopen = () => console.log("WS: server connected");
+		ws.onmessage = (e) => this._onMessage(e.data);
 		ws.onclose = () => this._onDisconnect();
-		ws.onerror = e => console.error(e);
+		ws.onerror = (e) => console.error(e);
 		this._socket = ws;
 	}
 
 	_onMessage(msg) {
 		msg = JSON.parse(msg);
-		console.log('WS:', msg);
+		console.log("WS:", msg);
 		switch (msg.type) {
-			case 'peers':
+			case "peers":
 				this.bus.$emit(msg.type, msg.peers);
 				break;
-			case 'peer-joined':
+			case "peer-joined":
 				this.bus.$emit(msg.type, msg.peer);
 				break;
-			case 'peer-left':
+			case "peer-left":
 				this.bus.$emit(msg.type, msg.peerId);
 				break;
-			case 'signal':
+			case "signal":
 				this.bus.$emit(msg.type, msg);
 				break;
-			case 'ping':
-				this.send({type: 'pong'});
+			case "ping":
+				this.send({ type: "pong" });
 				break;
-			case 'display-name':
+			case "display-name":
 				this.selfId = msg.message.id;
 				this.bus.$emit(msg.type, msg);
 				break;
 			default:
-				console.error('WS: unkown message type', msg);
+				console.error("WS: unkown message type", msg);
 		}
 	}
 
 	deleteSelf(peers) {
-
-		peers.forEach(element => {
+		peers.forEach((element) => {
 			// element.rtcSupported = true
 		});
 		return peers;
@@ -77,30 +75,30 @@ export class ServerConnection {
 	}
 
 	destroy() {
-		this.send({type: 'disconnect'});
+		this.send({ type: "disconnect" });
 		this._socket.onclose = null;
 		this._socket.close();
-		this.bus.$emit('close-connection', 'Disconnected');
+		this.bus.$emit("close-connection", "Disconnected");
 	}
 
 	_endpoint() {
 		// hack to detect if deployment or development environment
-		const protocol = location.protocol.startsWith('https') ? 'wss' : 'ws';
-		const webrtc = window.isRtcSupported ? '/webrtc' : '/fallback';
-		const url = protocol + '://localhost:3000' + location.pathname + 'server' + webrtc;
+		const protocol = location.protocol.startsWith("https") ? "wss" : "ws";
+		const webrtc = window.isRtcSupported ? "/webrtc" : "/fallback";
+		const url = protocol + "://localhost:3000" + location.pathname + "server" + webrtc;
 		return url;
 	}
 
 	_disconnect() {
-		this.send({type: 'disconnect'});
+		this.send({ type: "disconnect" });
 		this._socket.onclose = null;
 		this._socket.close();
-		this.bus.$emit('close-connection', 'Disconnected');
+		this.bus.$emit("close-connection", "Disconnected");
 	}
 
 	_onDisconnect() {
 		// console.log('WS: server disconnected');
-		this.bus.$emit('notify-user', 'Connection lost. Retry in 5 seconds...');
+		this.bus.$emit("notify-user", "Connection lost. Retry in 5 seconds...");
 		clearTimeout(this._reconnectTimer);
 		this._reconnectTimer = setTimeout(() => this._connect(), 5000);
 	}
@@ -120,7 +118,6 @@ export class ServerConnection {
 }
 
 export class Peer {
-
 	constructor(serverConnection, peerId, bus) {
 		this._server = serverConnection;
 		this._peerId = peerId;
@@ -143,7 +140,6 @@ export class Peer {
 		this._dequeueFile();
 	}
 
-
 	_dequeueFile() {
 		if (!this._filesQueue.length) return;
 		this._busy = true;
@@ -153,24 +149,26 @@ export class Peer {
 
 	_sendFile(file) {
 		this.sendJSON({
-			type: 'header',
+			type: "header",
 			name: file.name,
 			mime: file.type,
 			size: file.size,
-			from: file.from
+			from: file.from,
 		});
-		this._chunker = new FileChunker(file,
-			chunk => this._send(chunk),
-			offset => this._onPartitionEnd(offset));
+		this._chunker = new FileChunker(
+			file,
+			(chunk) => this._send(chunk),
+			(offset) => this._onPartitionEnd(offset)
+		);
 		this._chunker.nextPartition();
 	}
 
 	_onPartitionEnd(offset) {
-		this.sendJSON({type: 'partition', offset: offset});
+		this.sendJSON({ type: "partition", offset: offset });
 	}
 
 	_onReceivedPartitionEnd(offset) {
-		this.sendJSON({type: 'partition-received', offset: offset});
+		this.sendJSON({ type: "partition-received", offset: offset });
 	}
 
 	_sendNextPartition() {
@@ -179,33 +177,33 @@ export class Peer {
 	}
 
 	_sendProgress(progress) {
-		this.sendJSON({type: 'progress', progress: progress});
+		this.sendJSON({ type: "progress", progress: progress });
 	}
 
 	_onMessage(message) {
-		if (typeof message !== 'string') {
+		if (typeof message !== "string") {
 			this._onChunkReceived(message);
 			return;
 		}
 		message = JSON.parse(message);
 		// console.log('RTC:', message);
 		switch (message.type) {
-			case 'header':
+			case "header":
 				this._onFileHeader(message);
 				break;
-			case 'partition':
+			case "partition":
 				this._onReceivedPartitionEnd(message);
 				break;
-			case 'partition-received':
+			case "partition-received":
 				this._sendNextPartition();
 				break;
-			case 'progress':
+			case "progress":
 				this._onDownloadProgress(message.progress);
 				break;
-			case 'transfer-complete':
+			case "transfer-complete":
 				this._onTransferCompleted();
 				break;
-			case 'text':
+			case "text":
 				this._onTextReceived(message);
 				break;
 		}
@@ -213,11 +211,14 @@ export class Peer {
 
 	_onFileHeader(header) {
 		this._lastProgress = 0;
-		this._digester = new FileDigester({
-			name: header.name,
-			mime: header.mime,
-			size: header.size,
-		}, file => this._onFileReceived(file, header.from));
+		this._digester = new FileDigester(
+			{
+				name: header.name,
+				mime: header.mime,
+				size: header.size,
+			},
+			(file) => this._onFileReceived(file, header.from)
+		);
 	}
 
 	_onChunkReceived(chunk) {
@@ -234,21 +235,21 @@ export class Peer {
 	}
 
 	_onDownloadProgress(progress) {
-		this.bus.$emit('file-progress', {
+		this.bus.$emit("file-progress", {
 			sender: this._peerId,
 			progress: progress,
 			filesQueue: this._filesQueue.length + 1,
-			files: this._files
+			files: this._files,
 		});
 	}
 
 	_onFileReceived(proxyFile, from) {
 		const file = {
 			file: proxyFile,
-			from: from
-		}
-		this.bus.$emit('file-received', file);
-		this.sendJSON({type: 'transfer-complete'});
+			from: from,
+		};
+		this.bus.$emit("file-received", file);
+		this.sendJSON({ type: "transfer-complete" });
 	}
 
 	_onTransferCompleted() {
@@ -256,27 +257,26 @@ export class Peer {
 		this._reader = null;
 		this._busy = false;
 		this._dequeueFile();
-		this.bus.$emit('notify-user', 'File transfer completed.');
+		this.bus.$emit("notify-user", "File transfer completed.");
 	}
 
 	sendText(text) {
 		const unescaped = btoa(unescape(encodeURIComponent(text)));
-		this.sendJSON({type: 'text', text: unescaped});
+		this.sendJSON({ type: "text", text: unescaped });
 	}
 
 	_onTextReceived(message) {
 		const escaped = decodeURIComponent(escape(atob(message.text)));
-		this.bus.$emit('text-received', {text: escaped, sender: this._peerId});
+		this.bus.$emit("text-received", { text: escaped, sender: this._peerId });
 	}
 }
 
 class RTCPeer extends Peer {
-
 	constructor(serverConnection, peerId, bus) {
 		super(serverConnection, peerId, bus);
 		if (!peerId) return; // we will listen for a caller
 		this._connect(peerId, true);
-		this.bus.$on('close-connection', () => this._closeConnection());
+		this.bus.$on("close-connection", () => this._closeConnection());
 	}
 
 	_connect(peerId, isCaller) {
@@ -285,7 +285,7 @@ class RTCPeer extends Peer {
 		if (isCaller) {
 			this._openChannel();
 		} else {
-			this._conn.ondatachannel = e => this._onChannelOpened(e);
+			this._conn.ondatachannel = (e) => this._onChannelOpened(e);
 		}
 	}
 
@@ -293,9 +293,9 @@ class RTCPeer extends Peer {
 		this._isCaller = isCaller;
 		this._peerId = peerId;
 		this._conn = new RTCPeerConnection(RTCPeer.config);
-		this._conn.onicecandidate = e => this._onIceCandidate(e);
-		this._conn.onconnectionstatechange = e => this._onConnectionStateChange(e);
-		this._conn.oniceconnectionstatechange = e => this._onIceConnectionStateChange(e);
+		this._conn.onicecandidate = (e) => this._onIceCandidate(e);
+		this._conn.onconnectionstatechange = (e) => this._onConnectionStateChange(e);
+		this._conn.oniceconnectionstatechange = (e) => this._onIceConnectionStateChange(e);
 	}
 
 	_closeConnection(e) {
@@ -305,65 +305,69 @@ class RTCPeer extends Peer {
 	}
 
 	_openChannel() {
-		const channel = this._conn.createDataChannel('data-channel', {
+		const channel = this._conn.createDataChannel("data-channel", {
 			ordered: true,
-			reliable: true // Obsolete. See https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/reliable
+			reliable: true, // Obsolete. See https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/reliable
 		});
 
-		channel.onopen = e => this._onChannelOpened(e);
-		this._conn.createOffer().then(d => this._onDescription(d)).catch(e => this._onError(e));
+		channel.onopen = (e) => this._onChannelOpened(e);
+		this._conn
+			.createOffer()
+			.then((d) => this._onDescription(d))
+			.catch((e) => this._onError(e));
 	}
 
 	_onDescription(description) {
 		// description.sdp = description.sdp.replace('b=AS:30', 'b=AS:1638400');
-		this._conn.setLocalDescription(description)
-			.then(() => this._sendSignal({sdp: description}))
-			.catch(e => this._onError(e));
+		this._conn
+			.setLocalDescription(description)
+			.then(() => this._sendSignal({ sdp: description }))
+			.catch((e) => this._onError(e));
 	}
 
 	_onIceCandidate(event) {
 		if (!event.candidate) return;
-		this._sendSignal({ice: event.candidate});
+		this._sendSignal({ ice: event.candidate });
 	}
 
 	onServerMessage(message) {
 		if (!this._conn) this._connect(message.sender, false);
 		if (message.sdp) {
-			this._conn.setRemoteDescription(new RTCSessionDescription(message.sdp))
+			this._conn
+				.setRemoteDescription(new RTCSessionDescription(message.sdp))
 				.then(() => {
-					if (message.sdp.type === 'offer') {
-						return this._conn.createAnswer()
-							.then(d => this._onDescription(d));
+					if (message.sdp.type === "offer") {
+						return this._conn.createAnswer().then((d) => this._onDescription(d));
 					}
 				})
-				.catch(e => this._onError(e));
+				.catch((e) => this._onError(e));
 		} else if (message.ice) {
 			this._conn.addIceCandidate(new RTCIceCandidate(message.ice));
 		}
 	}
 
 	_onChannelOpened(event) {
-		console.log('RTC: channel opened with', this._peerId);
+		console.log("RTC: channel opened with", this._peerId);
 		const channel = event.channel || event.target;
-		channel.binaryType = 'arraybuffer';
-		channel.onmessage = e => this._onMessage(e.data);
+		channel.binaryType = "arraybuffer";
+		channel.onmessage = (e) => this._onMessage(e.data);
 		channel.onclose = () => this._onChannelClosed();
 		this._channel = channel;
 	}
 
 	_onChannelClosed() {
-		console.log('RTC: channel closed', this._peerId);
+		console.log("RTC: channel closed", this._peerId);
 		if (!this.isCaller) return;
 		this._connect(this._peerId, true); // reopen the channel
 	}
 
 	_onConnectionStateChange() {
-		console.log('RTC: state changed:', this._conn.connectionState);
+		console.log("RTC: state changed:", this._conn.connectionState);
 		switch (this._conn.connectionState) {
-			case 'disconnected':
+			case "disconnected":
 				this._onChannelClosed();
 				break;
-			case 'failed':
+			case "failed":
 				this._conn = null;
 				this._onChannelClosed();
 				break;
@@ -372,11 +376,11 @@ class RTCPeer extends Peer {
 
 	_onIceConnectionStateChange() {
 		switch (this._conn.iceConnectionState) {
-			case 'failed':
-				console.error('ICE Gathering failed');
+			case "failed":
+				console.error("ICE Gathering failed");
 				break;
 			default:
-				console.log('ICE Gathering', this._conn.iceConnectionState);
+				console.log("ICE Gathering", this._conn.iceConnectionState);
 		}
 	}
 
@@ -390,7 +394,7 @@ class RTCPeer extends Peer {
 	}
 
 	_sendSignal(signal) {
-		signal.type = 'signal';
+		signal.type = "signal";
 		signal.to = this._peerId;
 		this._server.send(signal);
 	}
@@ -402,16 +406,15 @@ class RTCPeer extends Peer {
 	}
 
 	_isConnected() {
-		return this._channel && this._channel.readyState === 'open';
+		return this._channel && this._channel.readyState === "open";
 	}
 
 	_isConnecting() {
-		return this._channel && this._channel.readyState === 'connecting';
+		return this._channel && this._channel.readyState === "connecting";
 	}
 }
 
 export class PeersManager {
-
 	constructor(serverConnection, bus) {
 		this.peers = {};
 		this._server = serverConnection;
@@ -419,20 +422,20 @@ export class PeersManager {
 		this.bus = bus;
 		this.destory();
 
-		this.bus.$on('signal', e => this._onMessage(e));
-		this.bus.$on('peers', e => this._onPeers(e));
-		this.bus.$on('files-selected', e => this._onFilesSelected(e));
-		this.bus.$on('send-text', e => this._onSendText(e));
-		this.bus.$on('peer-left', e => this._onPeerLeft(e));
+		this.bus.$on("signal", (e) => this._onMessage(e));
+		this.bus.$on("peers", (e) => this._onPeers(e));
+		this.bus.$on("files-selected", (e) => this._onFilesSelected(e));
+		this.bus.$on("send-text", (e) => this._onSendText(e));
+		this.bus.$on("peer-left", (e) => this._onPeerLeft(e));
 	}
 
 	destory() {
-		console.log('destroying peers manager');
-		this.bus.$off('signal');
-		this.bus.$off('peers');
-		this.bus.$off('files-selected');
-		this.bus.$off('send-text');
-		this.bus.$off('peer-left');
+		console.log("destroying peers manager");
+		this.bus.$off("signal");
+		this.bus.$off("peers");
+		this.bus.$off("files-selected");
+		this.bus.$off("send-text");
+		this.bus.$off("peer-left");
 	}
 
 	_onMessage(message) {
@@ -443,7 +446,7 @@ export class PeersManager {
 	}
 
 	_onPeers(peers) {
-		peers.forEach(peer => {
+		peers.forEach((peer) => {
 			if (this.peers[peer.id]) {
 				this.peers[peer.id].refresh();
 				return;
@@ -451,10 +454,9 @@ export class PeersManager {
 			if (window.isRtcSupported && peer.rtcSupported) {
 				this.peers[peer.id] = new RTCPeer(this._server, peer.id, this.bus);
 			} else {
-
 				this.peers[peer.id] = new WSPeer(this._server, peer.id);
 			}
-		})
+		});
 	}
 
 	sendTo(peerId, message) {
@@ -462,7 +464,7 @@ export class PeersManager {
 	}
 
 	_onFilesSelected(message) {
-		message.files.forEach(file => {
+		message.files.forEach((file) => {
 			file.from = message.from;
 		});
 		this.peers[message.to].sendText(message.files.length);
@@ -480,7 +482,6 @@ export class PeersManager {
 		if (!peer || !peer._peer) return;
 		peer._peer.close();
 	}
-
 }
 
 class WSPeer {
@@ -491,7 +492,6 @@ class WSPeer {
 }
 
 class FileChunker {
-
 	constructor(file, onChunk, onPartitionEnd) {
 		this._chunkSize = 64000; // 64 KB
 		this._maxPartitionSize = 1e6; // 1 MB
@@ -501,7 +501,7 @@ class FileChunker {
 		this._onChunk = onChunk;
 		this._onPartitionEnd = onPartitionEnd;
 		this._reader = new FileReader();
-		this._reader.addEventListener('load', e => this._onChunkRead(e.target.result));
+		this._reader.addEventListener("load", (e) => this._onChunkRead(e.target.result));
 	}
 
 	get progress() {
@@ -544,12 +544,11 @@ class FileChunker {
 }
 
 class FileDigester {
-
 	constructor(meta, callback) {
 		this._buffer = [];
 		this._bytesReceived = 0;
 		this._size = meta.size;
-		this._mime = meta.mime || 'application/octet-stream';
+		this._mime = meta.mime || "application/octet-stream";
 		this._name = meta.name;
 		this._callback = callback;
 	}
@@ -559,25 +558,25 @@ class FileDigester {
 		this._bytesReceived += chunk.byteLength || chunk.size;
 		// const totalChunks = this._buffer.length;
 		this.progress = this._bytesReceived / this._size;
-		if (isNaN(this.progress)) this.progress = 1
+		if (isNaN(this.progress)) this.progress = 1;
 
 		if (this._bytesReceived < this._size) return;
 		// we are done
-		let blob = new Blob(this._buffer, {type: this._mime});
+		let blob = new Blob(this._buffer, { type: this._mime });
 		this._callback({
 			name: this._name,
 			mime: this._mime,
 			size: this._size,
-			blob: blob
+			blob: blob,
 		});
 	}
-
 }
-
 
 RTCPeer.config = {
-	'sdpSemantics': 'unified-plan',
-	'iceServers': [{
-		urls: 'stun:stun.l.google.com:19302'
-	}]
-}
+	sdpSemantics: "unified-plan",
+	iceServers: [
+		{
+			urls: "stun:stun.l.google.com:19302",
+		},
+	],
+};

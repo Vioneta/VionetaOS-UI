@@ -4,10 +4,10 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/uploader/common/file-events.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
-const events = ['fileProgress', 'fileSuccess', 'fileComplete', 'fileError']
+const events = ["fileProgress", "fileSuccess", "fileComplete", "fileError"];
 
-export default events
+export default events;

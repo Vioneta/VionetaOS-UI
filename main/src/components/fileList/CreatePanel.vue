@@ -6,7 +6,7 @@
  * @FilePath: /CasaOS-UI/src/components/fileList/CreatePanel.vue
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
 -->
 <template>
 	<div class="modal-card">
@@ -22,15 +22,14 @@
 			<b-field :label="$t('Name ')" :message="message" :type="errorType">
 				<b-input v-model="name" expanded maxlength="255"></b-input>
 			</b-field>
-
 		</section>
 		<!-- Modal-Card Body End -->
 		<!-- Modal-Card Footer Start-->
 		<footer class="modal-card-foot is-flex is-align-items-center">
 			<div class="is-flex-grow-1"></div>
 			<div>
-				<b-button :label="$t('Cancel')" rounded @click="$emit('close')"/>
-				<b-button :label="$t('Submit')" rounded type="is-primary" @click="create()"/>
+				<b-button :label="$t('Cancel')" rounded @click="$emit('close')" />
+				<b-button :label="$t('Submit')" rounded type="is-primary" @click="create()" />
 			</div>
 		</footer>
 		<!-- Modal-Card Footer End-->
@@ -39,7 +38,6 @@
 
 <script>
 export default {
-
 	props: {
 		initPath: String,
 		isDir: Boolean,
@@ -48,47 +46,47 @@ export default {
 		return {
 			name: "",
 			message: "",
-			errorType: ""
-		}
+			errorType: "",
+		};
 	},
 
 	computed: {
 		title() {
 			return this.isDir ? "Create Folder" : "Create File";
-		}
+		},
 	},
 	methods: {
 		create() {
-			let path = `${this.initPath}/${this.name}`
+			let path = `${this.initPath}/${this.name}`;
 			if (this.isDir) {
-				this.$api.folder.create(path).then(res => {
+				this.$api.folder.create(path).then((res) => {
 					if (res.data.success == 200) {
 						this.successCallBack(path);
 					} else {
 						this.errorCallBack(res.data.message);
 					}
-				})
+				});
 			} else {
-				this.$api.file.create(path).then(res => {
+				this.$api.file.create(path).then((res) => {
 					if (res.data.success == 200) {
 						this.successCallBack(path);
 					} else {
-						this.errorType = "is-danger"
+						this.errorType = "is-danger";
 						this.errorCallBack(res.data.message);
 					}
-				})
+				});
 			}
 		},
 		successCallBack(path) {
-			this.message = ""
-			this.errorType = ""
-			this.$emit('close');
-			this.$emit("reloadPath", path)
+			this.message = "";
+			this.errorType = "";
+			this.$emit("close");
+			this.$emit("reloadPath", path);
 		},
 		errorCallBack(message) {
-			this.errorType = "is-danger"
-			this.message = message
+			this.errorType = "is-danger";
+			this.message = message;
 		},
 	},
-}
+};
 </script>

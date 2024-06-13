@@ -4,20 +4,20 @@
  * @LastEditors: Jerryk jerry@icewhale.org
  * @LastEditTime: 2022-07-14 17:41:17
  * @FilePath: \CasaOS-UI\src\service\batch.js
- * @Description: 
- * 
- * Copyright (c) 2022 by IceWhale, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
-import {api} from "./service.js";
+import { api } from "./service.js";
 
-const PREFIX = "/batch"
+const PREFIX = "/batch";
 
 const batch = {
 	// download
 	download(format, files) {
 		return api.get(`${PREFIX}`, {
 			format: format,
-			files: files
+			files: files,
 		});
 	},
 
@@ -35,8 +35,6 @@ const batch = {
 	delete(files) {
 		return api.delete(`${PREFIX}`, files);
 	},
-
-
-}
+};
 
 export default batch;

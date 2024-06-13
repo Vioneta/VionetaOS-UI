@@ -4,7 +4,7 @@
  * @FilePath: /CasaOS-UI/main/src/service/index.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 

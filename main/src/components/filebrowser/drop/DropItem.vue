@@ -4,20 +4,20 @@
   * @FilePath: /CasaOS-UI/src/components/filebrowser/drop/DropItem.vue
   * @Description:
   *
-  * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+  * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
   -->
 <template>
 	<div
 		:class="[
-      {
-        'is-floating': isFloat,
-        disabled: isDisabled,
-        'can-upload': !uploadDisabled,
-        hover: isHover,
-      },
-      customClass,
-    ]"
+			{
+				'is-floating': isFloat,
+				disabled: isDisabled,
+				'can-upload': !uploadDisabled,
+				hover: isHover,
+			},
+			customClass,
+		]"
 		:style="positionStyle"
 		class="drop-item contextmenu-canvas"
 		@dragend="onDrop"
@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import {VueEllipseProgress} from "vue-ellipse-progress";
-import events               from "@/events/events";
-import {gsap}               from "gsap";
-import CustomEase           from "gsap/CustomEase";
-import delay                from "lodash/delay";
+import { VueEllipseProgress } from "vue-ellipse-progress";
+import events from "@/events/events";
+import { gsap } from "gsap";
+import CustomEase from "gsap/CustomEase";
+import delay from "lodash/delay";
 
 export default {
 	name: "drop-item",
@@ -144,18 +144,11 @@ export default {
 	computed: {
 		positionStyle() {
 			const ratio = 1.86;
-			const angel =
-				this.index < 5 ? 30 * (this.index + 1) : 45 * (this.index % 5);
+			const angel = this.index < 5 ? 30 * (this.index + 1) : 45 * (this.index % 5);
 			const realRadius = this.index < 5 ? this.radius : this.radius / ratio;
 			return {
-				left:
-					this.center.x +
-					(realRadius / 2) * Math.cos((angel * Math.PI) / 180) +
-					"px",
-				top:
-					this.center.y -
-					(realRadius / 2) * Math.sin((angel * Math.PI) / 180) +
-					"px",
+				left: this.center.x + (realRadius / 2) * Math.cos((angel * Math.PI) / 180) + "px",
+				top: this.center.y - (realRadius / 2) * Math.sin((angel * Math.PI) / 180) + "px",
 			};
 		},
 		tipPosition() {

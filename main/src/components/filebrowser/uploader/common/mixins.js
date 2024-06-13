@@ -4,21 +4,21 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/uploader/common/mixins.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
 export const uploaderMixin = {
-	inject: ['uploader']
-}
+	inject: ["uploader"],
+};
 
 export const supportMixin = {
 	data() {
 		return {
-			support: true
-		}
+			support: true,
+		};
 	},
 	mounted() {
-		this.support = this.uploader.uploader.support
-	}
-}
+		this.support = this.uploader.uploader.support;
+	},
+};

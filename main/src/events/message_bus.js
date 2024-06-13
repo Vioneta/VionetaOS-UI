@@ -4,7 +4,7 @@
  * @FilePath: /CasaOS-UI/src/events/message_bus.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
 
 const sourceID = "vionetaos-ui";

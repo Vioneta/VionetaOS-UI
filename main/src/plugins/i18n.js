@@ -4,22 +4,22 @@
  * @FilePath: /CasaOS-UI/src/plugins/i18n.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
-import Vue      from 'vue'
-import VueI18n  from 'vue-i18n'
-import messages from '@/assets/lang'
+import Vue from "vue";
+import VueI18n from "vue-i18n";
+import messages from "@/assets/lang";
 
-Vue.use(VueI18n)
+Vue.use(VueI18n);
 
 const i18n = new VueI18n({
 	// Define defalut language
-	locale: localStorage.getItem('lang') || 'en_us',
-	fallbackLocale: 'en_us',
+	locale: localStorage.getItem("lang") || "en_us",
+	fallbackLocale: "en_us",
 	silentTranslationWarn: true,
-	messages
-})
+	messages,
+});
 
-export default i18n
+export default i18n;

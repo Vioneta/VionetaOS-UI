@@ -6,7 +6,7 @@
  * @FilePath: \CasaOS-UI-0.4.2\src\components\filebrowser\drop\DropBg.vue
  * @Description: 
  * 
- * Copyright (c) 2023 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved. 
 -->
 <template>
 	<div class="container is-absolute">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {gsap} from "gsap";
+import { gsap } from "gsap";
 
 export default {
 	name: "drop-bg",
@@ -33,43 +33,39 @@ export default {
 			const circle1 = this.$refs.circle1;
 			const circle2 = this.$refs.circle2;
 			const endScale = 1;
-			gsap
-				.to(circle1, {
+			gsap.to(circle1, {
+				duration: duration,
+				autoAlpha: 0,
+				ease: "none",
+				scale: endScale,
+				repeat: repeats,
+				repeatDelay: repeatDelay,
+			}).then((tween) => {
+				tween.revert();
+				gsap.to(circle1, {
 					duration: duration,
-					autoAlpha: 0,
-					ease: "none",
+					autoAlpha: 0.02,
 					scale: endScale,
-					repeat: repeats,
-					repeatDelay: repeatDelay,
-				})
-				.then((tween) => {
-					tween.revert();
-					gsap.to(circle1, {
-						duration: duration,
-						autoAlpha: 0.02,
-						scale: endScale,
-						delay: repeatDelay,
-					});
+					delay: repeatDelay,
 				});
-			gsap
-				.to(circle2, {
-					duration: duration,
-					autoAlpha: 0,
-					ease: "none",
-					scale: endScale,
-					repeat: repeats,
-					repeatDelay: repeatDelay,
-					delay: gapDelay,
-				})
-				.then((tween) => {
-					tween.revert();
-					gsap.to(circle2, {
-						duration: duration / ratio,
-						autoAlpha: 0.03,
-						scale: endScale / ratio,
-						delay: repeatDelay,
-					});
+			});
+			gsap.to(circle2, {
+				duration: duration,
+				autoAlpha: 0,
+				ease: "none",
+				scale: endScale,
+				repeat: repeats,
+				repeatDelay: repeatDelay,
+				delay: gapDelay,
+			}).then((tween) => {
+				tween.revert();
+				gsap.to(circle2, {
+					duration: duration / ratio,
+					autoAlpha: 0.03,
+					scale: endScale / ratio,
+					delay: repeatDelay,
 				});
+			});
 		},
 	},
 };

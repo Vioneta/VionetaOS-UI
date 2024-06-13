@@ -6,7 +6,7 @@
  * @FilePath: /CasaOS-UI/src/store/actions.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
 
 import $api from "@/service/api.js";
@@ -20,31 +20,30 @@ const actions = {
 		try {
 			// Changing the shortcut data structure
 			val.forEach((item) => {
-				item.icon = 'folder'
-				item.pack = 'casa'
-				item.visible = true
-				item.selected = true
-				item.extensions = null
-			})
-			let data = await $api.users.saveShutcutDetail(val).then(v => v.data.data);
-			context.commit("SET_SHORTCUT_DATA", data)
+				item.icon = "folder";
+				item.pack = "casa";
+				item.visible = true;
+				item.selected = true;
+				item.extensions = null;
+			});
+			let data = await $api.users.saveShutcutDetail(val).then((v) => v.data.data);
+			context.commit("SET_SHORTCUT_DATA", data);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
 	},
 
 	//get shortcut data
 	async GET_SHORTCUT_DATA(context, val) {
 		try {
-			let data = await $api.users.getShutcutDetail(val).then(v => v.data.data);
+			let data = await $api.users.getShutcutDetail(val).then((v) => v.data.data);
 			if (!data) {
-				data = []
+				data = [];
 			}
-			context.commit("SET_SHORTCUT_DATA", data)
+			context.commit("SET_SHORTCUT_DATA", data);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
-	}
-
-}
-export default actions
+	},
+};
+export default actions;

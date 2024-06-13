@@ -6,9 +6,9 @@
  * @FilePath: /CasaOS-UI/src/service/samba.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
-import {api} from "./service.js";
+import { api } from "./service.js";
 
 const PREFIX = "/samba";
 const samba = {
@@ -43,5 +43,5 @@ const samba = {
 	deleteShare(id) {
 		return api.delete(`${PREFIX}/shares/${id}`);
 	},
-}
+};
 export default samba;

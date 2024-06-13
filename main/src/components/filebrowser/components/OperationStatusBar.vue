@@ -6,7 +6,7 @@
  * @FilePath: \CasaOS-UI\src\components\filebrowser\components\OperationStatusBar.vue
  * @Description: 
  * 
- * Copyright (c) 2022 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved. 
 -->
 <template>
 	<div v-if="isShow" class="mr-2 operation-status-bar">

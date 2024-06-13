@@ -6,40 +6,40 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/drop/DropEntryButton.vue
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
 -->
 <template>
-  <div>
-    <div
-      :class="{ active: active }"
-      class="is-flex list-item new-list-item"
-      @click.prevent="$emit('open');$messageBus('files_filesdrop_tab')"
-    >
-      <div
-        slot="reference"
-        class="cover mr-2 is-flex-shrink-0 is-flex is-align-items-center none-click"
-      >
-        <b-icon  icon="drop" pack="casa"></b-icon>
-      </div>
-      <div>
-        <span>{{ title }}</span>
-      </div>
-    </div>
-  </div>
+	<div>
+		<div
+			:class="{ active: active }"
+			class="is-flex list-item new-list-item"
+			@click.prevent="
+				$emit('open');
+				$messageBus('files_filesdrop_tab');
+			"
+		>
+			<div slot="reference" class="cover mr-2 is-flex-shrink-0 is-flex is-align-items-center none-click">
+				<b-icon icon="drop" pack="casa"></b-icon>
+			</div>
+			<div>
+				<span>{{ title }}</span>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-  name: "drop-entry-button",
-  props: {
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: "",
-    },
-  },
+	name: "drop-entry-button",
+	props: {
+		active: {
+			type: Boolean,
+			default: false,
+		},
+		title: {
+			type: String,
+			default: "",
+		},
+	},
 };
 </script>

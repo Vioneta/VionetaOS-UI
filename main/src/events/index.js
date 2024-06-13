@@ -4,7 +4,7 @@
  * @FilePath: /CasaOS-UI/src/events/index.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
 
 import { api } from "@/service/service.js";

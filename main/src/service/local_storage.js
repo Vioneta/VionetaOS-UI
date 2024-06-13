@@ -6,15 +6,15 @@
  * @FilePath: /CasaOS-UI/src/service/local_storage.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
-import {api} from "./service.js";
+import { api } from "./service.js";
 
 const PREFIX = "/v2/local_storage";
 const local_storage = {
 	// Gets the storage list mounted to the mergerfs
 	get(data) {
-		return api.get(`${PREFIX}/mount`, data)
+		return api.get(`${PREFIX}/mount`, data);
 	},
 
 	// create the storage list mounted to the mergerfs
@@ -51,5 +51,5 @@ const local_storage = {
 	updateMergerfsInfo(data) {
 		return api.post(`${PREFIX}/merge`, data);
 	},
-}
+};
 export default local_storage;

@@ -4,7 +4,7 @@
  * @FilePath: \CasaOS-UI-0.4.2\src\components\basicComponents\tooltip\tooltip.vue
   * @Description:
   *
-  * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+  * Copyright (c) 2022 by Vioneta, All Rights Reserved.
   -->
 <template>
 	<span :class="rootClass">{{ $t(content) }}</span>
@@ -19,28 +19,32 @@ export default {
 			default: "is-success",
 			validator(v) {
 				return ["is-warning", "is-success", "is-danger", "is-info"].includes(v);
-			}
+			},
 		},
-		'isBlock': {
+		isBlock: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 		content: {
 			type: String,
-			default: "Beta"
-		}
+			default: "Beta",
+		},
 	},
 	computed: {
 		rootClass() {
-			return ['has-text-white', '_is-normal', {
-				'_has-background-green': this.modal === 'is-success',
-				'_has-background-red': this.modal === 'is-danger',
-				'_tooltip-right-inline': this['isBlock'] === false,
-				'_tooltip-right-block': this['isBlock'] === true
-			}];
+			return [
+				"has-text-white",
+				"_is-normal",
+				{
+					"_has-background-green": this.modal === "is-success",
+					"_has-background-red": this.modal === "is-danger",
+					"_tooltip-right-inline": this["isBlock"] === false,
+					"_tooltip-right-block": this["isBlock"] === true,
+				},
+			];
 		},
 	},
-}
+};
 </script>
 
 <style scoped>
@@ -62,7 +66,7 @@ export default {
 	line-height: 1rem;
 	/* identical to box height, or 133% */
 
-	font-feature-settings: 'pnum' on, 'lnum' on;
+	font-feature-settings: "pnum" on, "lnum" on;
 	height: 1.125rem;
 }
 
@@ -83,6 +87,4 @@ span._tooltip-right-block {
 	top: -0.375rem;
 	right: -0.5rem;
 }
-
-
 </style>

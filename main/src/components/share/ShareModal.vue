@@ -64,7 +64,7 @@ export default {
 		return {
 			timer: 0,
 			updateTimer: 0,
-			githubUrl: `https://raw.githubusercontent.com/IceWhaleTech/logo/main/vionetaos/0.4/vionetaos_social_share.png`,
+			githubUrl: `https://raw.githubusercontent.com/VionetaTech/logo/main/vionetaos/0.4/vionetaos_social_share.png`,
 			shareTitle: `I'm using CasaOS, a simple, easy-to-use, elegant open-source home cloud system, try it like me.`,
 			shareSites: ["facebook", "twitter", "reddit"],
 		};

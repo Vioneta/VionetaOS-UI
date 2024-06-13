@@ -6,22 +6,17 @@
  * @FilePath: \CasaOS-UI-0.4.2\src\components\filebrowser\components\SidebarMenuButton.vue
  * @Description: 
  * 
- * Copyright (c) 2023 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved. 
 -->
 <template>
-	<div
-		v-if="isMobile"
-		id="sidebar-btn"
-		class="is-flex is-align-items-center mr-3"
-		@click="handleShowSideBar"
-	>
+	<div v-if="isMobile" id="sidebar-btn" class="is-flex is-align-items-center mr-3" @click="handleShowSideBar">
 		<b-icon class="picon" icon="menu"></b-icon>
 	</div>
 </template>
 
 <script>
 import VueBreakpointMixin from "vue-breakpoint-mixin";
-import events             from "@/events/events";
+import events from "@/events/events";
 
 export default {
 	name: "sidebar-button",
@@ -34,5 +29,3 @@ export default {
 	},
 };
 </script>
-
-

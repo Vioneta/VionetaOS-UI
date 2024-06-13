@@ -766,7 +766,7 @@ export default {
 			// configData.host_name = parsedInput.hostname != undefined ? parsedInput.hostname : ""
 
 			// privileged
-			// relation issue: https://github.com/IceWhaleTech/CasaOS/issues/1264
+			// relation issue: https://github.com/VionetaTech/CasaOS/issues/1264
 			// if privileged is undefined or false, set it to false.
 			composeServicesItem.privileged = composeServicesItemInput.privileged === true;
 

@@ -4,22 +4,22 @@
  * @FilePath: /CasaOS-UI/src/mixins/base/common-i18n.js
  * @Description:
  *
- * Copyright (c) 2023 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved.
 
  */
 
-const i18n = function (data, fallback = 'en_us') {
-	let lang = localStorage.getItem('lang')
-	return data?.['custom'] || data?.[lang] || data?.[fallback] || data?.['en_US'];
-}
+const i18n = function (data, fallback = "en_us") {
+	let lang = localStorage.getItem("lang");
+	return data?.["custom"] || data?.[lang] || data?.[fallback] || data?.["en_US"];
+};
 
 // Common usage
-const ice_i18n = i18n
-export {ice_i18n};
+const ice_i18n = i18n;
+export { ice_i18n };
 
 // vue usage
 export default {
 	methods: {
-		i18n
-	}
-}
+		i18n,
+	},
+};

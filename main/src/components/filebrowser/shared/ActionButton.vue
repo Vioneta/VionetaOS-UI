@@ -6,46 +6,53 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/shared/ActionButton.vue
  * @Description: 
  * 
- * Copyright (c) 2022 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved. 
 -->
 <template>
 	<div class="action-btn">
-		<b-dropdown :id="'dr-'+index" ref="dropDown" :position="'is-'+verticalPos+'-left'" animation="fade1" append-to-body
-					aria-role="list" class="file-dropdown" close-on-click>
+		<b-dropdown
+			:id="'dr-' + index"
+			ref="dropDown"
+			:position="'is-' + verticalPos + '-left'"
+			animation="fade1"
+			append-to-body
+			aria-role="list"
+			class="file-dropdown"
+			close-on-click
+		>
 			<template #trigger>
 				<p role="button">
-					<b-icon id="das" custom-size="mdi-18px" icon="dots-horizontal">
-					</b-icon>
+					<b-icon id="das" custom-size="mdi-18px" icon="dots-horizontal"> </b-icon>
 				</p>
 			</template>
 			<b-dropdown-item aria-role="menuitem" @click="getShareLink(item)">
-				{{ $t('Get Share Link') }}
+				{{ $t("Get Share Link") }}
 			</b-dropdown-item>
 			<b-dropdown-item aria-role="menuitem" @click="goto">
-				{{ $t('Go to') }}
+				{{ $t("Go to") }}
 			</b-dropdown-item>
-			<hr class="dropdown-divider">
+			<hr class="dropdown-divider" />
 			<b-dropdown-item aria-role="menuitem" class="has-text-danger" @click="unShare">
-				{{ $t('UnShare') }}
+				{{ $t("UnShare") }}
 			</b-dropdown-item>
 		</b-dropdown>
 	</div>
 </template>
 
 <script>
-import ShareDetial from './ShareDetial.vue'
-import events      from '@/events/events';
+import ShareDetial from "./ShareDetial.vue";
+import events from "@/events/events";
 
 export default {
 	props: {
 		index: Number,
-		item: Object
+		item: Object,
 	},
 	components: {},
 	data() {
 		return {
-			verticalPos: "bottom"
-		}
+			verticalPos: "bottom",
+		};
 	},
 	methods: {
 		getShareLink(item) {
@@ -53,20 +60,20 @@ export default {
 				parent: this,
 				component: ShareDetial,
 				hasModalCard: true,
-				customClass: 'share-detial-panel file-modal',
+				customClass: "share-detial-panel file-modal",
 				trapFocus: true,
-				canCancel: [''],
+				canCancel: [""],
 				scroll: "keep",
 				animation: "zoom-in",
 				events: {
-					'close': () => {
+					close: () => {
 						// this.isModalOpen = false
-					}
+					},
 				},
 				props: {
-					item: item
-				}
-			})
+					item: item,
+				},
+			});
 		},
 		unShare() {
 			this.$EventBus.$emit(events.UN_SHARE, this.item);
@@ -74,11 +81,9 @@ export default {
 
 		goto() {
 			this.$EventBus.$emit(events.GOTO, this.item);
-		}
-
+		},
 	},
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

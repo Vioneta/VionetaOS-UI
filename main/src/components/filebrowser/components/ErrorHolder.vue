@@ -6,27 +6,25 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/components/ErrorHolder.vue
  * @Description: 
  * 
- * Copyright (c) 2023 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2023 by Vioneta, All Rights Reserved. 
 -->
 <template>
-    <div class="is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
-        <b-image :src="require('@/assets/img/sad.svg')" alt="pending" class="is-160x160 mb-2" />
-        <div>{{ $t(error) }}</div>
-    </div>
+	<div class="is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+		<b-image :src="require('@/assets/img/sad.svg')" alt="pending" class="is-160x160 mb-2" />
+		<div>{{ $t(error) }}</div>
+	</div>
 </template>
 
 <script>
 export default {
-    name: "ErrorHolder",
-    props: {
-        error: {
-            type: String,
-            default: ""
-        }
-    }
-}
+	name: "ErrorHolder",
+	props: {
+		error: {
+			type: String,
+			default: "",
+		},
+	},
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

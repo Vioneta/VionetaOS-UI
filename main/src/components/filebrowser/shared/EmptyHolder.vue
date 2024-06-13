@@ -6,20 +6,14 @@
  * @FilePath: /CasaOS-UI/src/components/filebrowser/shared/EmptyHolder.vue
  * @Description: 
  * 
- * Copyright (c) 2022 by IceWhale, All Rights Reserved. 
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved. 
 -->
 <template>
-  <div>
-    
-  </div>
+	<div></div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

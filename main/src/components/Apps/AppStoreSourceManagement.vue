@@ -112,7 +112,7 @@ function getSourceList() {
 				const sourceName = isHttp
 					? pathnameList[1]
 					: pathnameList[pathnameList.length - 1].split(".").slice(0, -1).join(".");
-				if (pathnameList[1] === "IceWhaleTech") {
+				if (pathnameList[1] === "Vioneta") {
 					return false;
 				} else {
 					item.name = sourceName;

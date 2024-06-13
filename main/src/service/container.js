@@ -6,13 +6,13 @@
  * @FilePath: /CasaOS-UI/src/service/container.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
-import {api} from "./service.js";
+import { api } from "./service.js";
 
-const PREFIX = "/container"
-const PREFIX2 = "/v2/app_management/container"
-const PREFIX2COMPOSE = "/v2/app_management/compose"
+const PREFIX = "/container";
+const PREFIX2 = "/v2/app_management/container";
+const PREFIX2COMPOSE = "/v2/app_management/compose";
 
 const container = {
 	// get container networks
@@ -98,14 +98,14 @@ const container = {
 	// update container state
 	updateState(id, state) {
 		return api.put(`${PREFIX}/${id}/state`, {
-			state: state
+			state: state,
 		});
 	},
 
 	//v2:: update container state
 	updateStateV2(id, state) {
 		return api.put(`${PREFIX2COMPOSE}/${id}/status`, {
-			status: state
+			status: state,
 		});
 	},
 
@@ -127,7 +127,7 @@ const container = {
 	// AppsInstallationLocation require doctument
 	putInstallationLocation(value) {
 		return api.put(`${PREFIX}/info`, {
-			docker_root_dir: value
+			docker_root_dir: value,
 		});
 	},
 
@@ -149,7 +149,7 @@ const container = {
 	// rebuild app
 	archive(id) {
 		return api.put(`${PREFIX}/archive/${id}`);
-	}
-}
+	},
+};
 
 export default container;

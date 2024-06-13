@@ -6,7 +6,7 @@
  * @FilePath: \CasaOS-UI\src\service\apps.js
  * @Description:
  *
- * Copyright (c) 2022 by IceWhale, All Rights Reserved.
+ * Copyright (c) 2022 by Vioneta, All Rights Reserved.
  */
 import { api } from "./service.js";
 
