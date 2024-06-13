@@ -92,7 +92,7 @@ function redirectURL() {
 	if (sourceDorpRef.value) {
 		sourceDorpRef.value.toggle();
 	}
-	window.open("https://awesome.vionetaos.io/content/3rd-party-app-stores/list.html", "_blank", "noopener");
+	window.open("https://vioneta.com", "_blank", "noopener");
 }
 
 function activeInput() {
