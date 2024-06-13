@@ -25,7 +25,7 @@
 			class="notification is-overlay mr-5 ml-5 mb-0 pr-0 pl-0 pt-5 pb-3 non-backgroud"
 		>
 			<div v-if="currentStep === 0" class="_is-normal _has-text-gray-600 mb-4">
-				{{ $t("All the checked Storage will be merged into CasaOS HD.") }}
+				{{ $t("All the checked Storage will be merged into VionetaOS HD.") }}
 			</div>
 
 			<div v-for="(item, index) in storageData" :key="item.path + index" class="is-flex mb-1 radius _height-40">

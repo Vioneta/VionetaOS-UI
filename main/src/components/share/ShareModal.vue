@@ -17,7 +17,7 @@
 					<div class="is-size-14px">
 						{{
 							$t(
-								"Please invite more friends who are concerned about family and data privacy to join and use CasaOS."
+								"Please invite more friends who are concerned about family and data privacy to join and use VionetaOS."
 							)
 						}}
 					</div>
@@ -64,8 +64,8 @@ export default {
 		return {
 			timer: 0,
 			updateTimer: 0,
-			githubUrl: `https://raw.githubusercontent.com/VionetaTech/logo/main/vionetaos/0.4/vionetaos_social_share.png`,
-			shareTitle: `I'm using CasaOS, a simple, easy-to-use, elegant open-source home cloud system, try it like me.`,
+			githubUrl: `https://raw.githubusercontent.com/Vioneta/logo/main/vionetaos/0.4/vionetaos_social_share.png`,
+			shareTitle: `I'm using VionetaOS,, try it like me.`,
 			shareSites: ["facebook", "twitter", "reddit"],
 		};
 	},
@@ -93,12 +93,12 @@ export default {
 			this.updateTimer = setInterval(() => {
 				this.$api.file.getContent(`/var/log/vionetaos/upgrade.log`).then((res) => {
 					this.updateLogs = res.data.data;
-					if (this.updateLogs.includes(`CasaOS upgrade successfully`)) {
+					if (this.updateLogs.includes(`VionetaOS upgrade successfully`)) {
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
 							location.reload();
 						}, 1000);
-					} else if (this.updateLogs.includes(`CasaOS upgrade failed`)) {
+					} else if (this.updateLogs.includes(`VionetaOS upgrade failed`)) {
 						this.$buefy.toast.open({
 							message: this.$t(`There seems to be a problem with the upgrade process, please try again!`),
 							type: "is-danger",

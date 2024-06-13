@@ -85,7 +85,7 @@ export default {
 			this.updateTimer = setInterval(() => {
 				this.$api.file.getContent(`/var/log/vionetaos/upgrade.log`).then((res) => {
 					this.updateLogs = res.data.data;
-					if (this.updateLogs.includes(`CasaOS upgrade successfully`)) {
+					if (this.updateLogs.includes(`VionetaOS upgrade successfully`)) {
 						localStorage.setItem("is_update", "true");
 						clearInterval(this.updateTimer);
 						setTimeout(() => {
@@ -93,7 +93,7 @@ export default {
 								path: "/logout",
 							});
 						}, 1000);
-					} else if (this.updateLogs.includes(`CasaOS upgrade failed`)) {
+					} else if (this.updateLogs.includes(`VionetaOS upgrade failed`)) {
 						this.$buefy.toast.open({
 							message: this.$t(`There seems to be a problem with the upgrade process, please try again!`),
 							type: "is-danger",

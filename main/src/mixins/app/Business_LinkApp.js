@@ -25,6 +25,7 @@ export default {
 				// forecast null or String.
 				let LinkAppList = await this.$api.users.getLinkAppDetail().then((v) => v.data.data || []);
 				LinkAppList = this.transferLinkAppList(LinkAppList);
+				console.log(LinkAppList);
 				return LinkAppList;
 			} catch (e) {
 				console.error("getLinkAppList", e);
